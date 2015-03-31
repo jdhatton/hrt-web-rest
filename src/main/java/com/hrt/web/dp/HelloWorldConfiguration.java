@@ -1,8 +1,10 @@
 package com.hrt.web.dp;
 
 import io.dropwizard.Configuration;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HelloWorldConfiguration extends Configuration {
 

@@ -1,7 +1,8 @@
 package com.hrt.web.core;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Saying {
