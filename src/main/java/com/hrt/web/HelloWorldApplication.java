@@ -1,6 +1,7 @@
 package com.hrt.web;
 
 import io.dropwizard.Application;
+import io.dropwizard.Bundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -23,7 +24,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 	    @Override
 	    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
-	        // nothing to do yet
+	        
+	    	//
+	    	// Add Swagger-UI
+	    	//
+ //	    	bootstrap.addBundle(new AssetBundle("/swagger/", "/docs", "index.html"));
+ //	    	bootstrap.setName("swagger-sample");
 	    }
 
 	    @Override
