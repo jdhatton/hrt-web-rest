@@ -1,7 +1,10 @@
 package com.hrt.data.db.beans;
 
+import org.joda.time.DateTime;
+
 public class District {
 
+	private long Id;
 	private String name;
 	private String address;
 	private String city;
@@ -13,15 +16,17 @@ public class District {
 	private String numSchools;
 	private String htmlLink;
 	private String distance;
+	private DateTime lastModified;
 	
 	public District() {
 		
 	}
 
-	public District(String name, String address, String city, String state,
+	public District(long id, String name, String address, String city, String state,
 			String zip, String county, String phone, String numStudents,
-			String numSchools, String link, String distance) {
+			String numSchools, String link, String distance ) {
 		super();
+		Id = id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
@@ -32,6 +37,7 @@ public class District {
 		this.numStudents = numStudents;
 		this.numSchools = numSchools;
 		this.htmlLink = link;
+		 
 	}
 
 	public String getName() {
@@ -122,14 +128,33 @@ public class District {
 		this.distance = distance;
 	}
 
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public DateTime getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(DateTime lastModified) {
+		this.lastModified = lastModified;
+	}
+
 	@Override
 	public String toString() {
-		return "District [name=" + name + ", address=" + address + ", city="
-				+ city + ", state=" + state + ", zip=" + zip + ", county="
-				+ county + ", phone=" + phone + ", numStudents=" + numStudents
-				+ ", numSchools=" + numSchools + ", htmlLink=" + htmlLink
-				+ ", distance=" + distance + "]";
+		return "District [Id=" + Id + ", name=" + name + ", address=" + address
+				+ ", city=" + city + ", state=" + state + ", zip=" + zip
+				+ ", county=" + county + ", phone=" + phone + ", numStudents="
+				+ numStudents + ", numSchools=" + numSchools + ", htmlLink="
+				+ htmlLink + ", distance=" + distance + ", lastModified="
+				+ lastModified + "]";
 	}
+
+
 	
 	
 
