@@ -28,7 +28,7 @@ public class RunHttpService {
 		
 		NcesEdGovWrapper wrapper = new NcesEdGovWrapperImpl();
 		String resp = wrapper.searchForDistricts("66220");
-		System.out.println(" resp =  " + resp);
+		//System.out.println(" resp =  " + resp);
 		System.out.println(" FINISH ");
 
 	}

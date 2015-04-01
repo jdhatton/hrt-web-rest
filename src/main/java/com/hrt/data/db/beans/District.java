@@ -11,6 +11,7 @@ public class District {
 	private String phone;
 	private long numStudents;
 	private long numSchools;
+	private String htmlLink;
 	
 	public District() {
 		
@@ -18,7 +19,7 @@ public class District {
 
 	public District(String name, String address, String city, String state,
 			String zip, String county, String phone, long numStudents,
-			long numSchools) {
+			long numSchools, String link) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -29,6 +30,7 @@ public class District {
 		this.phone = phone;
 		this.numStudents = numStudents;
 		this.numSchools = numSchools;
+		this.htmlLink = link;
 	}
 
 	public String getName() {
@@ -101,6 +103,14 @@ public class District {
 
 	public void setNumSchools(long numSchools) {
 		this.numSchools = numSchools;
+	}
+
+	public String getHtmlLink() {
+		return htmlLink;
+	}
+
+	public void setHtmlLink(String htmlLink) {
+		this.htmlLink = htmlLink;
 	}
 	
 	

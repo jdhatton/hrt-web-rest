@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jersey.repackaged.com.google.common.collect.Lists;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -23,6 +25,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.google.common.collect.Maps;
+import com.hrt.data.db.beans.District;
 
 public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 
@@ -45,7 +48,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		String webPage = execHttpRequest(zipCode);
 		
 		
-		dumpAllTables(webPage);
+		parseHtml(webPage);
 		
 		return webPage;
 	}
@@ -98,7 +101,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
  
 			response = client.execute(post);
-			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
+//			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
  
 			BufferedReader rd = new BufferedReader(
 			        new InputStreamReader(response.getEntity().getContent()));
@@ -108,7 +111,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 				result.append(line);
 			}
 			
-			System.out.println(" RESULT =  \n\n "+result.toString());
+//			System.out.println(" RESULT =  \n\n "+result.toString());
 			
 		} catch (UnsupportedEncodingException e) {			 
 			e.printStackTrace();
@@ -123,46 +126,64 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		
 	}
 	
-	protected void dumpAllTables(String html) {
+	/**
+	 * Method to parse out the relevant info for Districts.
+	 * @param html
+	 */
+	protected List<District> parseHtml(String html) {
 		
 		Document doc = null;
-		try {
-			//doc = Jsoup.connect("http://mobilereviews.net/details-for-Motorola%20L7.htm").get(); 
+		List<District> districts = Lists.newArrayList();
+		try {			 
 			doc =Jsoup.parse(html);
 		} catch (Exception e) {
+			//
+			// TODO: don't eat exceptions, do something with this.
+			//
 			e.printStackTrace();
 		}
 		System.out.println("\n>> Dumping HTML Table info \n");
         for (Element table : doc.select("table")) {
         	String data = table.text();       	
-        	//System.out.println(" <Table> = " + data);
+        	 
         	if( data.length() > 0){
 	        	if( Character.isDigit(data.charAt(0))){
-	        		System.out.println(" ");  //>>>>>>>>>>>>>>>       <Table> = " + data);  
-	   
-		        	//
-		        	// Dump the table elements
-		        	//
 		        	for (Element row : table.select("tr")) {
+		        		System.out.println(">>>   ");
 		                Elements tds = row.select("td");
 		                if(tds != null && tds.size() > 0){
+		                	int counter =0, numRows = 9;
+		                	District district = new District();
 		                	for(Element td : tds){
-		                		System.out.println(">>>    <TD>  = " + td.html() ); 
-//		                		Elements strongs = td.select("<strong>");
-//		                		for(Element strong : strongs){
-//		                			System.out.println(">>>    <strong>  = " + strong.text()); 
-//		                		}
+		                		//System.out.println(">>>    <TD>  = " + td.html() ); 
+		                		
+		                		Document districtTD =Jsoup.parse(td.html());		                		
+		                		for (Element href : districtTD.select("a")) {
+		                        	String link = "http://nces.ed.gov/ccd/districtsearch/"+href.attr("href");
+		                        	System.out.println(">>>    <a>  = " + link); 
+		                		}	
+		                		for (Element font : districtTD.select("font")) {
+		                        	//String dfont = font.text();
+		                        	System.out.println(">>>    <font>  = " + font.text()); 
+		                        	Document fontDoc =Jsoup.parse(font.html());
+		                		}
+		                		for (Element strong : districtTD.select("strong")) {
+		                        	//String dstrong = strong.text();
+		                        	System.out.println(">>>    <strong>  = " + strong.text()); 
+		                		}
+		                	
 		                	}
 		                }
 		            }
 	        	
 	        	}
-	        	else if(data.contains("Page 1Êof") && data.contains("Next >>")) {
+	        	else if(data.contains("Page 1 of") && data.contains("Next >>")) {
 	        		System.out.println(">>>>>>>>>>>>>>>       <Table> = " + data); 
 	        	}
 	        	
         	}
         }
+        return districts;
 	}
 		 
 
