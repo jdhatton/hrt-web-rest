@@ -8,6 +8,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import jersey.repackaged.com.google.common.collect.Lists;
+import jersey.repackaged.com.google.common.collect.Sets;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,6 +27,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.google.common.collect.Maps;
+import com.hrt.data.db.beans.District;
 
 public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 
@@ -45,8 +50,8 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		String webPage = execHttpRequest(zipCode);
 		
 		
-		dumpAllTables(webPage);
-		
+		Set<District> districts = parseHtml(webPage);
+		System.out.println("\n >>>>  size of districts = " + districts.size());
 		return webPage;
 	}
 
@@ -98,7 +103,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
  
 			response = client.execute(post);
-			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
+//			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
  
 			BufferedReader rd = new BufferedReader(
 			        new InputStreamReader(response.getEntity().getContent()));
@@ -108,7 +113,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 				result.append(line);
 			}
 			
-			System.out.println(" RESULT =  \n\n "+result.toString());
+//			System.out.println(" RESULT =  \n\n "+result.toString());
 			
 		} catch (UnsupportedEncodingException e) {			 
 			e.printStackTrace();
@@ -123,46 +128,87 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		
 	}
 	
-	protected void dumpAllTables(String html) {
+	/**
+	 * Method to parse out the relevant info for Districts.
+	 * @param html
+	 */
+	protected Set<District> parseHtml(String html) {
 		
 		Document doc = null;
-		try {
-			//doc = Jsoup.connect("http://mobilereviews.net/details-for-Motorola%20L7.htm").get(); 
+		Set<District> districts = Sets.newHashSet();
+		try {			 
 			doc =Jsoup.parse(html);
 		} catch (Exception e) {
+			//
+			// TODO: don't eat exceptions, do something with this.
+			//
 			e.printStackTrace();
 		}
 		System.out.println("\n>> Dumping HTML Table info \n");
         for (Element table : doc.select("table")) {
         	String data = table.text();       	
-        	//System.out.println(" <Table> = " + data);
+        	 
         	if( data.length() > 0){
 	        	if( Character.isDigit(data.charAt(0))){
-	        		System.out.println(" ");  //>>>>>>>>>>>>>>>       <Table> = " + data);  
-	   
-		        	//
-		        	// Dump the table elements
-		        	//
 		        	for (Element row : table.select("tr")) {
+		        		System.out.println(">>>   ");
 		                Elements tds = row.select("td");
 		                if(tds != null && tds.size() > 0){
+		                	int counter =0;
+		                	District district = new District();
 		                	for(Element td : tds){
-		                		System.out.println(">>>    <TD>  = " + td.html() ); 
-//		                		Elements strongs = td.select("<strong>");
-//		                		for(Element strong : strongs){
-//		                			System.out.println(">>>    <strong>  = " + strong.text()); 
-//		                		}
+		                		counter++;
+		                		System.out.println(">>>    counter    = " + counter ); 
+		                		//System.out.println(">>>    <TD>  = " + td.html() ); 
+		                		
+		                		Document districtTD =Jsoup.parse(td.html());		                		
+		                		for (Element href : districtTD.select("a")) {
+		                        	String link = "http://nces.ed.gov/ccd/districtsearch/"+href.attr("href");
+		                        	System.out.println(">>>    <a>  = " + link); 
+		                        	district.setHtmlLink(link);
+		                		}	
+		                		for (Element font : districtTD.select("font")) {
+		                        	//String dfont = font.text();
+		                        	System.out.println(">>>    <font>  = " + font.text()); 
+		                        	if(counter == 1){
+		                        		// distance
+		                        		district.setDistance(font.text());
+		                        	} else if( counter == 2){
+		                        		// address
+		                        		district.setAddress(font.text());
+		                        	} else if( counter == 3){
+		                        		// phone
+		                        		district.setPhone(font.text());
+		                        	} else if( counter == 4){
+		                        		// county
+		                        		district.setCounty(font.text());
+		                        	} else if( counter == 5){
+		                        		// numStudents
+		                        		district.setNumStudents(font.text());
+		                        	} else if( counter == 6){
+		                        		// numSchools
+		                        		district.setNumSchools(font.text());
+		                        	}
+		                		}
+		                		for (Element strong : districtTD.select("strong")) {
+		                        	 
+		                        	System.out.println(">>>    <strong>  = " + strong.text()); 
+		                        	district.setName(strong.text());
+		                		}
+		                	districts.add(district);
 		                	}
 		                }
 		            }
 	        	
 	        	}
-	        	else if(data.contains("Page 1Êof") && data.contains("Next >>")) {
+	        	else if(data.contains("Page 1 of") && data.contains("Next >>")) {
 	        		System.out.println(">>>>>>>>>>>>>>>       <Table> = " + data); 
 	        	}
 	        	
         	}
         }
+        System.out.println("\n\n RETURNING :   " + districts.toString());
+        return districts;
 	}
 		 
 
