@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Implementation-Title: HRT-REST-WEB-DP
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: com.hrt
-Build-Jdk: 1.6.0_65
+Build-Jdk: 1.7.0_72
 Built-By: jdhatton
 Created-By: Maven Integration for Eclipse
 
