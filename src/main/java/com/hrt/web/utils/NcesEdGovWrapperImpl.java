@@ -17,6 +17,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.google.common.collect.Maps;
 
@@ -35,41 +39,15 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		//
 		// Call the web service to get the HTML containing the list of districts.
 		//
-       		
-		Map<String,String> parameters = Maps.newHashMap();
-		parameters.put("Search", "1");
-		parameters.put("details", "1");
-		parameters.put("InstName", "");
-		parameters.put("DistrictID", "");
-		parameters.put("Address", "");
-		parameters.put("City", "");
-		parameters.put("State", "");
-		parameters.put("Zip", zipCode);
-		parameters.put("Miles", "15");
-		parameters.put("County", "");
-		parameters.put("PhoneAreaCode", "");
-		parameters.put("Phone", "");
-		parameters.put("DistrictType", "1");
-		parameters.put("DistrictType", "2");
-		parameters.put("DistrictType", "3");
-		parameters.put("DistrictType", "4");
-		parameters.put("DistrictType", "5");
-		parameters.put("DistrictType", "6");
-		parameters.put("DistrictType", "7");
-		parameters.put("NumOfStudents", "");
-		parameters.put("NumOfStudentsRange", "more");
-		parameters.put("NumOfSchools", "");
-		parameters.put("NumOfSchoolsRange", "more");
-		
-		
-//		HttpResponse webPage = WS.url("http://nces.ed.gov/ccd/districtsearch/district_list.asp").setParameters(parameters).post();
-		
-//		HttpResponse webPage = WS.url(fullURL).setParameters(parameters).post();
+
 //		System.out.println("\n >>>  RESPONSE = \n  " + webPage.getString() );
-//		
-		HttpResponse webPage = execHttpRequest(zipCode);
+ 		
+		String webPage = execHttpRequest(zipCode);
 		
-		return webPage.toString();
+		
+		dumpAllTables(webPage);
+		
+		return webPage;
 	}
 
 	public String searchForSchools(String districtName) {
@@ -78,11 +56,12 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 	}
 	
 	
-	private HttpResponse execHttpRequest(String zipCode){
+	private String execHttpRequest(String zipCode){
 	
 		
 		String url = "http://nces.ed.gov/ccd/districtsearch/district_list.asp";  // "https://selfsolve.apple.com/wcResults.do";
 		HttpResponse response = null;
+		StringBuffer result = new StringBuffer();
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 	 
@@ -123,15 +102,13 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
  
 			BufferedReader rd = new BufferedReader(
 			        new InputStreamReader(response.getEntity().getContent()));
- 
-			StringBuffer result = new StringBuffer();
+ 			
 			String line = "";
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 			}
 			
 			System.out.println(" RESULT =  \n\n "+result.toString());
-			//File file = new File("/home/jdhatton/devenv/results.html");
 			
 		} catch (UnsupportedEncodingException e) {			 
 			e.printStackTrace();
@@ -142,8 +119,50 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		} catch (IOException e) {			 
 			e.printStackTrace();
 		}
-		return response;
+		return result.toString();
 		
+	}
+	
+	protected void dumpAllTables(String html) {
+		
+		Document doc = null;
+		try {
+			//doc = Jsoup.connect("http://mobilereviews.net/details-for-Motorola%20L7.htm").get(); 
+			doc =Jsoup.parse(html);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("\n>> Dumping HTML Table info \n");
+        for (Element table : doc.select("table")) {
+        	String data = table.text();       	
+        	//System.out.println(" <Table> = " + data);
+        	if( data.length() > 0){
+	        	if( Character.isDigit(data.charAt(0))){
+	        		System.out.println(" ");  //>>>>>>>>>>>>>>>       <Table> = " + data);  
+	   
+		        	//
+		        	// Dump the table elements
+		        	//
+		        	for (Element row : table.select("tr")) {
+		                Elements tds = row.select("td");
+		                if(tds != null && tds.size() > 0){
+		                	for(Element td : tds){
+		                		System.out.println(">>>    <TD>  = " + td.html() ); 
+//		                		Elements strongs = td.select("<strong>");
+//		                		for(Element strong : strongs){
+//		                			System.out.println(">>>    <strong>  = " + strong.text()); 
+//		                		}
+		                	}
+		                }
+		            }
+	        	
+	        	}
+	        	else if(data.contains("Page 1Êof") && data.contains("Next >>")) {
+	        		System.out.println(">>>>>>>>>>>>>>>       <Table> = " + data); 
+	        	}
+	        	
+        	}
+        }
 	}
 		 
 
