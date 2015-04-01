@@ -9,17 +9,18 @@ public class District {
 	private String zip;
 	private String county;
 	private String phone;
-	private long numStudents;
-	private long numSchools;
+	private String numStudents;
+	private String numSchools;
 	private String htmlLink;
+	private String distance;
 	
 	public District() {
 		
 	}
 
 	public District(String name, String address, String city, String state,
-			String zip, String county, String phone, long numStudents,
-			long numSchools, String link) {
+			String zip, String county, String phone, String numStudents,
+			String numSchools, String link, String distance) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -89,19 +90,19 @@ public class District {
 		this.phone = phone;
 	}
 
-	public long getNumStudents() {
+	public String getNumStudents() {
 		return numStudents;
 	}
 
-	public void setNumStudents(long numStudents) {
+	public void setNumStudents(String numStudents) {
 		this.numStudents = numStudents;
 	}
 
-	public long getNumSchools() {
+	public String getNumSchools() {
 		return numSchools;
 	}
 
-	public void setNumSchools(long numSchools) {
+	public void setNumSchools(String numSchools) {
 		this.numSchools = numSchools;
 	}
 
@@ -111,6 +112,23 @@ public class District {
 
 	public void setHtmlLink(String htmlLink) {
 		this.htmlLink = htmlLink;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	@Override
+	public String toString() {
+		return "District [name=" + name + ", address=" + address + ", city="
+				+ city + ", state=" + state + ", zip=" + zip + ", county="
+				+ county + ", phone=" + phone + ", numStudents=" + numStudents
+				+ ", numSchools=" + numSchools + ", htmlLink=" + htmlLink
+				+ ", distance=" + distance + "]";
 	}
 	
 	

@@ -8,8 +8,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jersey.repackaged.com.google.common.collect.Lists;
+import jersey.repackaged.com.google.common.collect.Sets;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,8 +50,8 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		String webPage = execHttpRequest(zipCode);
 		
 		
-		parseHtml(webPage);
-		
+		Set<District> districts = parseHtml(webPage);
+		System.out.println("\n >>>>  size of districts = " + districts.size());
 		return webPage;
 	}
 
@@ -130,10 +132,10 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 	 * Method to parse out the relevant info for Districts.
 	 * @param html
 	 */
-	protected List<District> parseHtml(String html) {
+	protected Set<District> parseHtml(String html) {
 		
 		Document doc = null;
-		List<District> districts = Lists.newArrayList();
+		Set<District> districts = Sets.newHashSet();
 		try {			 
 			doc =Jsoup.parse(html);
 		} catch (Exception e) {
@@ -152,26 +154,48 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		        		System.out.println(">>>   ");
 		                Elements tds = row.select("td");
 		                if(tds != null && tds.size() > 0){
-		                	int counter =0, numRows = 9;
+		                	int counter =0;
 		                	District district = new District();
 		                	for(Element td : tds){
+		                		counter++;
+		                		System.out.println(">>>    counter    = " + counter ); 
 		                		//System.out.println(">>>    <TD>  = " + td.html() ); 
 		                		
 		                		Document districtTD =Jsoup.parse(td.html());		                		
 		                		for (Element href : districtTD.select("a")) {
 		                        	String link = "http://nces.ed.gov/ccd/districtsearch/"+href.attr("href");
 		                        	System.out.println(">>>    <a>  = " + link); 
+		                        	district.setHtmlLink(link);
 		                		}	
 		                		for (Element font : districtTD.select("font")) {
 		                        	//String dfont = font.text();
 		                        	System.out.println(">>>    <font>  = " + font.text()); 
-		                        	Document fontDoc =Jsoup.parse(font.html());
+		                        	if(counter == 1){
+		                        		// distance
+		                        		district.setDistance(font.text());
+		                        	} else if( counter == 2){
+		                        		// address
+		                        		district.setAddress(font.text());
+		                        	} else if( counter == 3){
+		                        		// phone
+		                        		district.setPhone(font.text());
+		                        	} else if( counter == 4){
+		                        		// county
+		                        		district.setCounty(font.text());
+		                        	} else if( counter == 5){
+		                        		// numStudents
+		                        		district.setNumStudents(font.text());
+		                        	} else if( counter == 6){
+		                        		// numSchools
+		                        		district.setNumSchools(font.text());
+		                        	}
 		                		}
 		                		for (Element strong : districtTD.select("strong")) {
-		                        	//String dstrong = strong.text();
+		                        	 
 		                        	System.out.println(">>>    <strong>  = " + strong.text()); 
+		                        	district.setName(strong.text());
 		                		}
-		                	
+		                	districts.add(district);
 		                	}
 		                }
 		            }
@@ -183,6 +207,7 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 	        	
         	}
         }
+        System.out.println("\n\n RETURNING :   " + districts.toString());
         return districts;
 	}
 		 
