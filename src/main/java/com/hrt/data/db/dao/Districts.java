@@ -17,7 +17,7 @@ public interface Districts {
 
 	
 	
-    @SqlUpdate("insert into Districts (id, name, address,phone, numStudents,numSchools, htmlLink, distance, lastModified) values (:id, :name, :address, :phone, :numStudents, :numSchools, :htmlLink, :distance, :lastModified)")
+    @SqlUpdate("insert into Districts (id, name, address,phone, numberOfStudents,numberOfSchools, fullDetailURL, distance, lastModified) values (:id, :name, :address, :phone, :numStudents, :numSchools, :htmlLink, :distance, :lastModified)")
     int insert(@BindBean District something);
     
     @SqlQuery("select * from District where id = :id")
