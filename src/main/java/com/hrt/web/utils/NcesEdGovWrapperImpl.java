@@ -206,15 +206,38 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 	        	
 	        	}
 	        	else if(data.contains("Next >>")) {
-	        		System.out.println("\n\n >>>>>>>>>>>>>>> >>>>>>>>  >>>>>>>    >>>>>>         <Table> = " + data);  
-	        		System.out.println(" >>>>>>>>>>>>>>> >>>>>>>>  >>>>>>>    >>>>>>         <tabHtml> = " + tabHtml); 
-	        		// Page 1 of 2    1 - 15   Next >>  
-//	        		<tbody>
-//	        		 <tr>
-//	        		  <td width="33%"><font color="#FFFFFF" size="2"><strong>&nbsp;&nbsp;Page <font color="#EDFFE8">1&nbsp;of&nbsp;2</font></strong></font></td>
-//	        		  <td width="67%" align="right"><font color="#FFFFFF" size="2"><strong><font color="#EDFFE8">&nbsp;&nbsp;&nbsp;1 - 15&nbsp;&nbsp;&nbsp;</font><a class="ignoredclass1" href="district_list.asp?DistrictPageNum=2">Next &gt;&gt;</a>&nbsp;&nbsp;</strong></font></td>
-//	        		 </tr>
-//	        		</tbody>
+	        		if(data.length() < 60) { // hard code to avoid all the other crap.
+		        		System.out.println("\n\n >>>>>>>>>>>>>>> >>>>>>>>  >>>>>>>    >>>>>>         <Table> = " + data); 
+		        		// Page 1 of 2    1 - 15   Next >>
+		        		
+		        		//
+		        		// TODO: parse the string to determine the number of pages.
+		        		//
+		        		  
+		        		 String[] splits = data.split(" ");
+	
+		        		 System.out.println("splits.size: " + splits.length);
+	
+		        		 if(splits != null && splits.length > 0){
+		        			 for(String asset: splits){
+			        			 if(asset.contains("of")){
+			        				 //
+			        				 // This is the 1 of X where X is the # pages in the pagination.
+			        				 //
+			        				 String lastPage = asset.substring(asset.length()-2, asset.length());
+			        				 System.out.println(" lastPage  =  [" + lastPage+"]");
+			        				 int lastPageNum = Integer.valueOf(lastPage.trim());
+			        				 System.out.println(" lastPageNum  =  [" + lastPageNum+"]");
+			        			 }
+			        		 }
+		        		 }
+		        		 
+		        		 
+	 
+		        		
+		        		 // &DistrictPageNum=1
+		        		 System.out.println(" ");
+	        		}
 	        	}
 	        	
         	}
