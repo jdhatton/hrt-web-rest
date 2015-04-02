@@ -13,51 +13,34 @@ import com.hrt.data.db.beans.District;
  */
 public class DistrictDaoImpl extends DAO implements DistrictDao {
 
-	/**
-	 * 
-	 */
+ 
 	public DistrictDaoImpl() {
-		// TODO Auto-generated constructor stub
+		 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hrt.data.db.dao.DistrictDao#findAll()
-	 */
+ 
 	public List<District> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Districts dao = DAO.getDBI().onDemand(Districts.class);
+		return dao.findAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hrt.data.db.dao.DistrictDao#findById(long)
-	 */
+ 
 	public District findById(long Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Districts dao = DAO.getDBI().onDemand(Districts.class);
+		return dao.findById(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hrt.data.db.dao.DistrictDao#addDistrict(com.hrt.data.db.beans.District)
-	 */
+ 
 	public void addDistrict(District district) {
-		// TODO Auto-generated method stub
-
+		Districts dao = DAO.getDBI().onDemand(Districts.class);
+		dao.insert(district);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hrt.data.db.dao.DistrictDao#updateDistrict(com.hrt.data.db.beans.District)
-	 */
+ 
 	public void updateDistrict(District district) {
-		// TODO Auto-generated method stub
-
+//		Districts dao = DAO.getDBI().onDemand(Districts.class);
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
 
 }

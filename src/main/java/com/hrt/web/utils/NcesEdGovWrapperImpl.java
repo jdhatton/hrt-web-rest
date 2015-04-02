@@ -28,6 +28,9 @@ import org.jsoup.select.Elements;
 
 import com.google.common.collect.Maps;
 import com.hrt.data.db.beans.District;
+import com.hrt.data.db.dao.DistrictDaoImpl;
+import com.hrt.web.services.DistrictService;
+import com.hrt.web.services.DistrictServiceImpl;
 
 public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 
@@ -52,6 +55,14 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		
 		Set<District> districts = parseHtml(webPage);
 		System.out.println("\n >>>>  size of districts = " + districts.size());
+		
+		DistrictService service = new DistrictServiceImpl(new DistrictDaoImpl());
+		for(District district : districts){
+			try{
+				service.addDistrict(district);
+			} catch(Exception ex){ex.printStackTrace();}
+		}
+		
 		return webPage;
 	}
 

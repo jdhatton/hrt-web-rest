@@ -2,6 +2,7 @@ package com.hrt.data.db.dao;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -14,10 +15,12 @@ import com.hrt.data.db.mappers.DistrictMapper;
 @RegisterMapper(DistrictMapper.class)
 public interface Districts {
 
-    @SqlUpdate("insert into Districts (id, name) values (:id, :name)")
+	
+	
+    @SqlUpdate("insert into Districts (id, name, address,phone, numStudents,numSchools, htmlLink, distance, lastModified) values (:id, :name, :address, :phone, :numStudents, :numSchools, :htmlLink, :distance, :lastModified)")
     int insert(@BindBean District something);
     
-    @SqlQuery("select id, email from District where id = :id")
+    @SqlQuery("select * from District where id = :id")
     District findById(@Bind("id") long id);
     
     @SqlQuery("select * from District ")
