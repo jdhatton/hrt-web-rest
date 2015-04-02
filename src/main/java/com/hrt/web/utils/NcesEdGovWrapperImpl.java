@@ -43,13 +43,8 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 	public String searchForDistricts(String zipCode) {
 		
 		
-		System.out.println(" \n\n\n   zipCode =  " + zipCode);
-		//
-		// Call the web service to get the HTML containing the list of districts.
-		//
-
-//		System.out.println("\n >>>  RESPONSE = \n  " + webPage.getString() );
- 		
+		System.out.println(" \n\n   zipCode =  " + zipCode);
+ 
 		String webPage = execHttpRequest(zipCode);
 		
 		
@@ -71,7 +66,11 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		return null;
 	}
 	
-	
+	/**
+	 * 
+	 * @param zipCode
+	 * @return
+	 */
 	private String execHttpRequest(String zipCode){
 	
 		
@@ -80,8 +79,6 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		StringBuffer result = new StringBuffer();
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
-	 
-		// add header	
 		post.setHeader("User-Agent", USER_AGENT);
 	 
 		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
@@ -108,24 +105,19 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		urlParameters.add(new BasicNameValuePair("NumOfStudentsRange", "more"));
 		urlParameters.add(new BasicNameValuePair("NumOfSchools", ""));
 		urlParameters.add(new BasicNameValuePair("NumOfSchoolsRange", "more"));
-		
-	 
+			 
 		try {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
  
 			response = client.execute(post);
 //			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
  
-			BufferedReader rd = new BufferedReader(
-			        new InputStreamReader(response.getEntity().getContent()));
- 			
+			BufferedReader rd = new BufferedReader( new InputStreamReader(response.getEntity().getContent()));
+ 		
 			String line = "";
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
-			}
-			
-//			System.out.println(" RESULT =  \n\n "+result.toString());
-			
+			}	
 		} catch (UnsupportedEncodingException e) {			 
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {			 
@@ -157,7 +149,8 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		}
 		System.out.println("\n>> Dumping HTML Table info \n");
         for (Element table : doc.select("table")) {
-        	String data = table.text();       	
+        	String data = table.text();    
+        	String tabHtml = table.html();
         	 
         	if( data.length() > 0){
 	        	if( Character.isDigit(data.charAt(0))){
@@ -212,8 +205,16 @@ public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 		            }
 	        	
 	        	}
-	        	else if(data.contains("Page 1 of") && data.contains("Next >>")) {
-	        		System.out.println(">>>>>>>>>>>>>>>       <Table> = " + data); 
+	        	else if(data.contains("Next >>")) {
+	        		System.out.println("\n\n >>>>>>>>>>>>>>> >>>>>>>>  >>>>>>>    >>>>>>         <Table> = " + data);  
+	        		System.out.println(" >>>>>>>>>>>>>>> >>>>>>>>  >>>>>>>    >>>>>>         <tabHtml> = " + tabHtml); 
+	        		// Page 1 of 2    1 - 15   Next >>  
+//	        		<tbody>
+//	        		 <tr>
+//	        		  <td width="33%"><font color="#FFFFFF" size="2"><strong>&nbsp;&nbsp;Page <font color="#EDFFE8">1&nbsp;of&nbsp;2</font></strong></font></td>
+//	        		  <td width="67%" align="right"><font color="#FFFFFF" size="2"><strong><font color="#EDFFE8">&nbsp;&nbsp;&nbsp;1 - 15&nbsp;&nbsp;&nbsp;</font><a class="ignoredclass1" href="district_list.asp?DistrictPageNum=2">Next &gt;&gt;</a>&nbsp;&nbsp;</strong></font></td>
+//	        		 </tr>
+//	        		</tbody>
 	        	}
 	        	
         	}
