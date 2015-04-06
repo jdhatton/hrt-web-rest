@@ -4,6 +4,9 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.hrt.web.dp.HelloWorldConfiguration;
 import com.hrt.web.resources.HelloWorldResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
@@ -25,11 +28,15 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 	    }
 
 	    @Override
+
 	    public void run(HelloWorldConfiguration configuration, Environment environment) {	       
 	    	final HelloWorldResource helloWorld = new HelloWorldResource();	
-//	    	final ZipDistrictSchoolResource zipDistricts = new ZipDistrictSchoolResource();
+	    	final ZipDistrictSchoolResource zipDistricts = new ZipDistrictSchoolResource();
+	    	
 	    	environment.jersey().register(helloWorld);  
-//	    	environment.jersey().register(zipDistricts);
+	    	environment.jersey().register(zipDistricts);
+
+
 	    }
 
 }
