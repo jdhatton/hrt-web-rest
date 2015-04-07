@@ -25,4 +25,7 @@ public interface Districts {
     
     @SqlQuery("select * from District ")
     List<District> findAll();
+    
+    @SqlQuery("select * from District where zipCode = :zip")
+    List<District> findByZip(String zip); 
 }

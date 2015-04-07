@@ -45,4 +45,10 @@ public class DistrictServiceImpl implements DistrictService {
 		return districtDao.findAll();
 	}
 
+	public List<District> findByZip(String zip) {
+		return districtDao.findByZip(zip);
+	}
+	
+	
+
 }

@@ -13,4 +13,6 @@ public interface DistrictDao {
 	public void addDistrict(District district) ;
 
 	public void updateDistrict(District district);
+
+	public List<District> findByZip(String zip);
 }

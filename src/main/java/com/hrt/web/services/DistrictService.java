@@ -10,6 +10,8 @@ public interface DistrictService {
 	
 	public District findById(long id);
 	
+	public List<District> findByZip(String zip);
+	
 	public List<District> findAll();
 	
 	

@@ -66,7 +66,7 @@ logging:
   loggers:
 
     # Sets the level for 'com.example.app' to DEBUG.
-    com.example.app: DEBUG
+    com.hrt: DEBUG
 
     org.hibernate.SQL: ALL
 

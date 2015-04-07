@@ -12,14 +12,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Optional;
 import com.hrt.web.core.Saying;
 
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
  
+	final static Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
     private final AtomicLong counter;
 
     public HelloWorldResource() {
@@ -30,6 +33,8 @@ public class HelloWorldResource {
     @GET
     @Timed
     public Saying sayHello(@DefaultValue("null")  @QueryParam("name") String name) {
+    	
+    	logger.debug(" >>  sayHello() logged....");
         final String value = name;
         return new Saying(counter.incrementAndGet(), value);
     }

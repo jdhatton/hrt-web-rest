@@ -40,6 +40,11 @@ public class DistrictDaoImpl extends DAO implements DistrictDao {
 	public void updateDistrict(District district) {
 //		Districts dao = DAO.getDBI().onDemand(Districts.class);
 	}
+	
+	public List<District> findByZip(String zip) {
+		Districts dao = DAO.getDBI().onDemand(Districts.class);
+		return dao.findByZip(zip);
+	}
 
 
 

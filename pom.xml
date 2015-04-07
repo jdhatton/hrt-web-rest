@@ -93,6 +93,15 @@
 		<version>3.0</version>
     </dependency>
     
+    
+    <dependency>
+         <groupId>com.hubspot.dropwizard</groupId>
+         <artifactId>dropwizard-guice</artifactId>
+         <version>0.7.0.2</version>
+    </dependency>
+ 
+    
+    
 <!--  
  -->
     <dependency>
