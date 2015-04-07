@@ -13,7 +13,7 @@ public class HelloWorldConfiguration extends Configuration {
 
     @NotEmpty
     private String defaultName = "Stranger";
-
+   
     @JsonProperty
     public String getTemplate() {
         return template;
@@ -34,10 +34,5 @@ public class HelloWorldConfiguration extends Configuration {
         this.defaultName = name;
     }
 	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

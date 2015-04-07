@@ -85,25 +85,16 @@
 		<artifactId>dropwizard-jdbi</artifactId>
 		<version>0.8.0</version>
     </dependency>
-    
-
+ 
+ 
     <dependency>
 		<groupId>com.google.inject</groupId>
 		<artifactId>guice</artifactId>
 		<version>3.0</version>
     </dependency>
     
-    
-    <dependency>
-         <groupId>com.hubspot.dropwizard</groupId>
-         <artifactId>dropwizard-guice</artifactId>
-         <version>0.7.0.2</version>
-    </dependency>
- 
-    
-    
-<!--  
- -->
+  <!--      
+  -->
     <dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
@@ -123,12 +114,16 @@
 		<version>5.1.35</version>
 	</dependency>
 
+<!--  
+
 	<dependency>    
 		<groupId>ch.qos.logback</groupId>    
 		<artifactId>logback-classic</artifactId>    
 		<version>1.0.13</version>
 	</dependency>
-      
+ -->
+ 
+       
 </dependencies>
   
   

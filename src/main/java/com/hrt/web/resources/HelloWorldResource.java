@@ -24,10 +24,10 @@ public class HelloWorldResource {
  
 	final static Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
     private final AtomicLong counter;
-
-    public HelloWorldResource() {
+    
  
-        this.counter = new AtomicLong();
+    public HelloWorldResource() { 
+        this.counter = new AtomicLong();         
     }
 
     @GET

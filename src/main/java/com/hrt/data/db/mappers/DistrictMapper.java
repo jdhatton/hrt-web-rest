@@ -17,12 +17,18 @@ public class DistrictMapper implements ResultSetMapper<District> {
 
 	public District map(int index, ResultSet r, StatementContext ctx)
 			throws SQLException {
-		return new District(r.getLong("id"), r.getString("name"),
-				r.getString("address"), r.getString("city"),
-				r.getString("state"), r.getString("zip"),
-				r.getString("county"), r.getString("phone"),
-				r.getString("numStudents"), r.getString("numSchools"),
-				r.getString("htmlLink"), r.getString("distance"));
+		return new District(r.getLong("id"), 
+				r.getString("name"),
+				r.getString("address"), 
+				r.getString("city"),
+				r.getString("state"), 
+				r.getString("zip"),
+				r.getString("county"), 
+				r.getString("phone"),
+				r.getString("numberOfStudents"), 
+				r.getString("numberOfSchools"),
+				r.getString("fullDetailURL"), 
+				r.getString("distance"));
 	}
 
 }

@@ -20,12 +20,12 @@ public interface Districts {
     @SqlUpdate("insert into Districts (id, name, address,phone, numberOfStudents,numberOfSchools, fullDetailURL, distance, lastModified) values (:id, :name, :address, :phone, :numStudents, :numSchools, :htmlLink, :distance, :lastModified)")
     int insert(@BindBean District something);
     
-    @SqlQuery("select * from District where id = :id")
+    @SqlQuery("select * from Districts where id = :id")
     District findById(@Bind("id") long id);
     
     @SqlQuery("select * from District ")
     List<District> findAll();
     
-    @SqlQuery("select * from District where zipCode = :zip")
-    List<District> findByZip(String zip); 
+    @SqlQuery("select * from Districts where zip = :zip")
+    List<District> findByZip(@Bind("zip")String zip); 
 }

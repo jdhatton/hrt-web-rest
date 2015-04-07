@@ -5,11 +5,9 @@ package com.hrt.web.services;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import com.google.inject.Inject;
 import com.hrt.data.db.beans.District;
 import com.hrt.data.db.dao.DistrictDao;
-import com.hrt.data.db.dao.UserDao;
 
 /**
  * @author jdhatton
@@ -19,6 +17,10 @@ public class DistrictServiceImpl implements DistrictService {
 
 	DistrictDao districtDao;
 	
+//	public DistrictServiceImpl() {
+//
+//	}
+ 
 	@Inject
 	public DistrictServiceImpl(DistrictDao dao) {
 		this.districtDao = dao;

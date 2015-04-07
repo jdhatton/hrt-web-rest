@@ -7,9 +7,14 @@ import io.dropwizard.setup.Environment;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.hrt.data.db.dao.DistrictDao;
+import com.hrt.data.db.dao.DistrictDaoImpl;
+import com.hrt.data.db.dao.UserDao;
+import com.hrt.data.db.dao.UserDaoImpl;
 import com.hrt.web.dp.HelloWorldConfiguration;
 import com.hrt.web.resources.HelloWorldResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
+import com.hrt.web.services.DistrictService;
 import com.hrt.web.services.DistrictServiceImpl;
 
 
@@ -26,13 +31,22 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 	    @Override
 	    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+
 	    }
+	    
+ 
 
 	    @Override
-
-	    public void run(HelloWorldConfiguration configuration, Environment environment) {	       
+	    public void run(HelloWorldConfiguration configuration, Environment environment) throws Exception {	       
 	    	
-	    	Injector injector = Guice.createInjector();
+	    
+	    	
+//	    	final HelloWorldResource resource = new HelloWorldResource( );
+//	    	environment.jersey().register(resource);
+	    	
+	    	
+	    	
+	    	Injector injector = createInjector(configuration);
 	    	
 	    	environment.jersey().register(injector.getInstance(HelloWorldResource.class));
 	    	environment.jersey().register(injector.getInstance(ZipDistrictSchoolResource.class));
@@ -48,13 +62,20 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 	    }
 	    
-	    @SuppressWarnings("unused")
+	    
 		private Injector createInjector(final HelloWorldConfiguration conf) {
 	        return Guice.createInjector(new AbstractModule() {
 	            @Override
 	            protected void configure() {
-	                bind(HelloWorldConfiguration.class).toInstance(conf); // if someone would like to @Inject ExampleServiceConfiguration
-	                //bind(MessagesConfiguration.class).toInstance(conf.getMessages()); // for ExampleResource, which does @Inject MessagesConfiguration
+ 
+	            	bind(HelloWorldConfiguration.class).toInstance(conf); // if someone would like to @Inject ExampleServiceConfiguration
+	            	//bind(MessagesConfiguration.class).toInstance(conf.getMessages()); // for ExampleResource, which does @Inject MessagesConfiguration
+	            	bind(DistrictService.class).to(DistrictServiceImpl.class);
+	            	bind(DistrictDao.class).to(DistrictDaoImpl.class);
+//	            	bind(UserDao.class).to(UserDaoImpl.class);
+//	            	bind(UserService.class).to(UserServiceImpl.class);		
+//	            	bind(NcesEdGovWrapper.class).to(NcesEdGovWrapperImpl.class);
+ 
 	            }
 	        });
 	    }
