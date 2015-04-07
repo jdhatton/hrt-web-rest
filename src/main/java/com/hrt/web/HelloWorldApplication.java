@@ -34,32 +34,20 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 	    }
 	    
- 
-
 	    @Override
 	    public void run(HelloWorldConfiguration configuration, Environment environment) throws Exception {	       
 	    	
-	    
-	    	
+	   	    	
 //	    	final HelloWorldResource resource = new HelloWorldResource( );
 //	    	environment.jersey().register(resource);
-	    	
+//	    	environment.jersey().register(zipDistricts);	    	
 	    	
 	    	
 	    	Injector injector = createInjector(configuration);
 	    	
 	    	environment.jersey().register(injector.getInstance(HelloWorldResource.class));
 	    	environment.jersey().register(injector.getInstance(ZipDistrictSchoolResource.class));
-	    	
-	    	 
-	    	
-//	    	final HelloWorldResource helloWorld = new HelloWorldResource();	
-//	    	final ZipDistrictSchoolResource zipDistricts = new ZipDistrictSchoolResource(new DistrictServiceImpl(new DistrictDaoImpl()));
-//	    	
-//	    	environment.jersey().register(helloWorld);  
-//	    	environment.jersey().register(zipDistricts);
-
-
+  
 	    }
 	    
 	    

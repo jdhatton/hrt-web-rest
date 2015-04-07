@@ -23,7 +23,7 @@ public interface Districts {
     @SqlQuery("select * from Districts where id = :id")
     District findById(@Bind("id") long id);
     
-    @SqlQuery("select * from District ")
+    @SqlQuery("select * from Districts ")
     List<District> findAll();
     
     @SqlQuery("select * from Districts where zip = :zip")

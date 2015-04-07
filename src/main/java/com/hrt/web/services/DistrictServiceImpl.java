@@ -17,18 +17,11 @@ public class DistrictServiceImpl implements DistrictService {
 
 	DistrictDao districtDao;
 	
-//	public DistrictServiceImpl() {
-//
-//	}
- 
 	@Inject
 	public DistrictServiceImpl(DistrictDao dao) {
 		this.districtDao = dao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hrt.web.services.DistrictService#addDistrict(com.hrt.data.db.beans.District)
-	 */
 	public void addDistrict(District district) {
 		
 		try {
@@ -36,7 +29,6 @@ public class DistrictServiceImpl implements DistrictService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public District findById(long id) {

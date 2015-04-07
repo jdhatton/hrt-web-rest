@@ -16,6 +16,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.District;
+import com.hrt.web.core.MinimalDistrict;
 import com.hrt.web.services.DistrictService;
 
 @Path("/schoolSearch")
@@ -35,14 +36,27 @@ public class ZipDistrictSchoolResource {
 
 	@GET
 	@Timed
-	public List<District> lookupDistrictInfo(@QueryParam("zip") String zipCode) {
+	public List<MinimalDistrict> lookupDistrictInfo(@QueryParam("zip") String zipCode) {
 
-		logger.debug("looking up districts for zipCode : @", zipCode);
+		logger.debug("\n >>>  looking up districts for zipCode : " + zipCode);
 		List<District> districts = Lists.newArrayList();
+		List<MinimalDistrict> minDistricts = Lists.newArrayList();
 
+		if(zipCode == null || (zipCode != null && zipCode.length() < 2)){
+			zipCode = "66220";
+		}
+		
+		logger.debug("\n >>>  starting service call for zipCode : " + zipCode);
 		districts = service.findByZip(zipCode);
 
-		return districts;
+		//
+		// For now we know the IOS only needs the ID and name.
+		//
+		for(District district: districts){
+			minDistricts.add(new MinimalDistrict(Long.toString(district.getId()), district.getName()));
+		}
+		
+		return minDistricts;
 	}
 	    
  
