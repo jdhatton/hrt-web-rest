@@ -19,7 +19,7 @@ import com.hrt.web.core.Saying;
 import com.hrt.web.resources.client.DataSyncResponse;
 
 
-@Path("/dataSync")
+@Path("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
 public class DataSyncResource {
 
