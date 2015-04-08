@@ -16,6 +16,16 @@ public class ZipCode {
 
 	
 	
+	public ZipCode(String zipCode, String zipCodeType, String city, String state) {
+		super();
+		this.zipCode = zipCode;
+		this.zipCodeType = zipCodeType;
+		this.city = city;
+		this.state = state;
+	}
+
+
+
 	public ZipCode(String zipCode, String zipCodeType, String city,
 			String state, String lat, String lon, String location,
 			String decommisioned, String estimatedPopulation) {

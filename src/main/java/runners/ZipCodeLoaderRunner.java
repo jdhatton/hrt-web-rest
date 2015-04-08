@@ -15,28 +15,40 @@ public class ZipCodeLoaderRunner {
 
 	public void run() {
 
+		System.out.println("\n STARTING LOAD \n ");
 		String csvFile = "/home/jdhatton/devenv/workspace01/web-rest-dp/free-zipcode-database-Primary.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
 		ZipCode zipCode = new ZipCode();
+		long counter =0L;
 		try {
 
 			Map<String, String> maps = new HashMap<String, String>();
 
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-
-				// use comma as separator
-				String[] data = line.split(cvsSplitBy);
-				
-				// zipCode, ZipCodeType, City, State, LocationType, Lat, Long, Location, Decommisioned, TaxReturnsFiled, EstimatedPopulation, TotalWages 
-				
-				zipCode = null;
-				zipCode = new ZipCode(data[1], data[2], data[3],data[4], data[6], data[7], data[8], data[9], data[11]);
-//				maps.put(data[4], data[5]);
-				
-				System.out.println(" ZIPCODE  = " + zipCode.toString());
+				if(counter > 30){ return; }
+				counter++;
+				if(counter == 1){
+					//skip first line
+				} else {
+					// use comma as separator
+					String[] data = line.split(cvsSplitBy);
+					System.out.println(" data length   = " + data.length);
+					System.out.println(" data[0]  = " + data[0]);
+					System.out.println(" data[1]  = " + data[1]);
+					System.out.println(" data[2]  = " + data[2]);
+					System.out.println(" data[3]  = " + data[3]);
+ 
+					// zipCode, ZipCodeType, City, State, LocationType, Lat, Long, Location, Decommisioned, TaxReturnsFiled, EstimatedPopulation, TotalWages 
+					
+					zipCode = null;
+					zipCode = new ZipCode(data[1], data[2], data[3],data[4] );
+	//				maps.put(data[4], data[5]);
+					
+					System.out.println(" ZIPCODE  = " + zipCode.toString());
+				}
 
 			}
 
