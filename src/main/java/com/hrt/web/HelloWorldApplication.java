@@ -9,13 +9,15 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hrt.data.db.dao.DistrictDao;
 import com.hrt.data.db.dao.DistrictDaoImpl;
-import com.hrt.data.db.dao.UserDao;
-import com.hrt.data.db.dao.UserDaoImpl;
+import com.hrt.data.db.dao.ZipCodeDao;
+import com.hrt.data.db.dao.ZipCodeDaoImpl;
 import com.hrt.web.dp.HelloWorldConfiguration;
 import com.hrt.web.resources.HelloWorldResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
 import com.hrt.web.services.DistrictService;
 import com.hrt.web.services.DistrictServiceImpl;
+import com.hrt.web.services.ZipCodeService;
+import com.hrt.web.services.ZipCodeServiceImpl;
 
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
@@ -60,6 +62,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 	            	//bind(MessagesConfiguration.class).toInstance(conf.getMessages()); // for ExampleResource, which does @Inject MessagesConfiguration
 	            	bind(DistrictService.class).to(DistrictServiceImpl.class);
 	            	bind(DistrictDao.class).to(DistrictDaoImpl.class);
+	            	bind(ZipCodeService.class).to(ZipCodeServiceImpl.class);
+	            	bind(ZipCodeDao.class).to(ZipCodeDaoImpl.class);
 //	            	bind(UserDao.class).to(UserDaoImpl.class);
 //	            	bind(UserService.class).to(UserServiceImpl.class);		
 //	            	bind(NcesEdGovWrapper.class).to(NcesEdGovWrapperImpl.class);

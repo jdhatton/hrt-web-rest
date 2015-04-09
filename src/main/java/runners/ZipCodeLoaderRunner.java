@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import jersey.repackaged.com.google.common.collect.Lists;
 
 import com.hrt.data.db.beans.ZipCode;
 
@@ -15,7 +18,7 @@ public class ZipCodeLoaderRunner {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void run() {
+	public List<ZipCode> run() {
 
 		System.out.println("\n STARTING LOAD \n ");
 		String csvFile = "/home/jdhatton/devenv/workspace01/web-rest-dp/free-zipcode-database-Primary.csv";
@@ -23,13 +26,13 @@ public class ZipCodeLoaderRunner {
 		String line = "";
 		String cvsSplitBy = ",";
 		ZipCode zipCode = new ZipCode();
+		List<ZipCode> zipCodes = Lists.newArrayList();
 		long counter =0L;
 		try {
 			
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-				if(counter > 3000){ return; }
-				counter++;
+ 
 				if(counter == 1){
 					//skip first line
 				} else {
@@ -56,17 +59,9 @@ public class ZipCodeLoaderRunner {
 					}
 					
 					System.out.println(" ZIPCODE  = " + zipCode.toString());
+					zipCodes.add(zipCode);
 				}
-
 			}
-
-			// loop map
-//			for (Map.Entry<String, String> entry : maps.entrySet()) {
-//
-//				System.out.println("Country [code= " + entry.getKey()
-//						+ " , name=" + entry.getValue() + "]");
-//
-//			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -81,8 +76,8 @@ public class ZipCodeLoaderRunner {
 				}
 			}
 		}
-
 		System.out.println("Done");
+		return zipCodes;
 	}
 
 	/**
