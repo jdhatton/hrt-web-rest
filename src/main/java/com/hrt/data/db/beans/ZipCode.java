@@ -1,7 +1,8 @@
-package runners;
+package com.hrt.data.db.beans;
 
 public class ZipCode {
 
+	private long id;
 	private String zipCode;
 	private String zipCodeType;
 	private String city;
@@ -30,6 +31,24 @@ public class ZipCode {
 			String state, String lat, String lon, String location,
 			String decommisioned, String estimatedPopulation) {
 		super();
+		this.zipCode = zipCode;
+		this.zipCodeType = zipCodeType;
+		this.city = city;
+		this.state = state;
+		this.lat = lat;
+		this.lon = lon;
+		this.location = location;
+		this.decommisioned = decommisioned;
+		this.estimatedPopulation = estimatedPopulation;
+	}
+
+
+
+	public ZipCode(long id,String zipCode, String zipCodeType, String city,
+			String state, String lat, String lon, String location,
+			String decommisioned, String estimatedPopulation) {
+		super();
+		this.id = id;
 		this.zipCode = zipCode;
 		this.zipCodeType = zipCodeType;
 		this.city = city;

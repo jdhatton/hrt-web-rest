@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.hrt.data.db.beans.ZipCode;
+
 public class ZipCodeLoaderRunner {
 
 	public ZipCodeLoaderRunner() {
@@ -23,12 +25,10 @@ public class ZipCodeLoaderRunner {
 		ZipCode zipCode = new ZipCode();
 		long counter =0L;
 		try {
-
-			Map<String, String> maps = new HashMap<String, String>();
-
+			
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-				if(counter > 30){ return; }
+				if(counter > 3000){ return; }
 				counter++;
 				if(counter == 1){
 					//skip first line
@@ -36,16 +36,24 @@ public class ZipCodeLoaderRunner {
 					// use comma as separator
 					String[] data = line.split(cvsSplitBy);
 					System.out.println(" data length   = " + data.length);
-					System.out.println(" data[0]  = " + data[0]);
-					System.out.println(" data[1]  = " + data[1]);
-					System.out.println(" data[2]  = " + data[2]);
-					System.out.println(" data[3]  = " + data[3]);
+//					System.out.println(" data[0]  = " + data[0]);
+//					System.out.println(" data[1]  = " + data[1]);
+//					System.out.println(" data[2]  = " + data[2]);
+//					System.out.println(" data[3]  = " + data[3]);
  
+					//   1            2        3    4        5           6    7      8          9              10                11
 					// zipCode, ZipCodeType, City, State, LocationType, Lat, Long, Location, Decommisioned, TaxReturnsFiled, EstimatedPopulation, TotalWages 
 					
 					zipCode = null;
-					zipCode = new ZipCode(data[1], data[2], data[3],data[4] );
-	//				maps.put(data[4], data[5]);
+					zipCode = new ZipCode(data[0], data[1], data[2],data[3] );
+					if(data.length > 8 ){
+						zipCode.setLat(data[5]);
+						zipCode.setLon(data[6]);
+						zipCode.setLocation(data[7]);
+					}
+					if(data.length > 10 ){
+						zipCode.setEstimatedPopulation(data[10]);
+					}
 					
 					System.out.println(" ZIPCODE  = " + zipCode.toString());
 				}

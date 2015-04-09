@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import runners.ZipCodeLoaderRunner;
+
 import com.codahale.metrics.annotation.Timed;
 import com.hrt.web.core.Saying;
 
@@ -36,6 +38,15 @@ public class HelloWorldResource {
     	
     	logger.debug(" >>  sayHello() logged....");
         final String value = name;
+        
+        
+        //
+        // For now we can trigger this here
+        //
+		ZipCodeLoaderRunner obj = new ZipCodeLoaderRunner();
+		obj.run();
+        
+        
         return new Saying(counter.incrementAndGet(), value);
     }
 }
