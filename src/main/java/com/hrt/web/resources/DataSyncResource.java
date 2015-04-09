@@ -15,46 +15,47 @@ import javax.ws.rs.core.MediaType;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
+import com.hrt.data.db.beans.District;
+import com.hrt.web.core.MinimalDistrict;
 import com.hrt.web.core.Saying;
 import com.hrt.web.resources.client.DataSyncResponse;
-
 
 @Path("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
 public class DataSyncResource {
 
-	private final String template;
-	private final String defaultName;
+
 	private final AtomicLong counter;
 
-	    public DataSyncResource(String template, String defaultName) {
-	        this.template = template;
-	        this.defaultName = defaultName;
-	        this.counter = new AtomicLong();
-	    }
+	@Inject
+	public DataSyncResource() {
+		this.counter = new AtomicLong();
+	}
 
-	    @GET
-	    @Timed
-	    public Saying sayHello(@QueryParam("name") Optional<String> name) {
-	        final String value = String.format(template, name.or(defaultName));
-	        return new Saying(counter.incrementAndGet(), value);
-	    }
-	    
-	    @POST
-	    @Timed
-	    public DataSyncResponse syncData(@QueryParam("data") String data) {
+	@GET
+	@Timed
+	public String sayHi() {	
+		return "Connected";
+	}
+ 
 
-	    	System.out.println(" DataSyncResource::syncData() = " + data);
-	    	
-	        return new DataSyncResponse("SUCCESS");
-	    }
-	    
-	    @POST
-	    @Timed
-	    @Path("update/{id}")
-	    @Consumes(MediaType.APPLICATION_JSON)
-	    public int updateRecord(@PathParam("id") int id, List<Entity> entities) {
-	      // Do something with entities...
-	      return 0;
-	    }
+	@POST
+	@Timed
+	public DataSyncResponse syncData(@QueryParam("data") String data) {
+
+		System.out.println(" DataSyncResource::syncData() = " + data);
+
+		return new DataSyncResponse("SUCCESS");
+	}
+
+	@POST
+	@Timed
+	@Path("update/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public int updateRecord(@PathParam("id") int id, List<Entity> entities) {
+		// Do something with entities...
+		return 0;
+	}
 }
