@@ -9,9 +9,12 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hrt.data.db.dao.DistrictDao;
 import com.hrt.data.db.dao.DistrictDaoImpl;
+ 
 import com.hrt.data.db.dao.ZipCodeDao;
 import com.hrt.data.db.dao.ZipCodeDaoImpl;
+
 import com.hrt.web.dp.HelloWorldConfiguration;
+import com.hrt.web.resources.DataSyncResource;
 import com.hrt.web.resources.HelloWorldResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
 import com.hrt.web.services.DistrictService;
@@ -49,6 +52,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 	    	
 	    	environment.jersey().register(injector.getInstance(HelloWorldResource.class));
 	    	environment.jersey().register(injector.getInstance(ZipDistrictSchoolResource.class));
+	    	environment.jersey().register(injector.getInstance(DataSyncResource.class));
   
 	    }
 	    
