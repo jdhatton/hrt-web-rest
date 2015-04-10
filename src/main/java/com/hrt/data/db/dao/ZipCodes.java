@@ -11,7 +11,7 @@ import com.hrt.data.db.mappers.ZipCodeMapper;
 public interface ZipCodes {
 
  
-    @SqlUpdate("insert into ZipCode (zipCode, zipCodeType, city, state, locationType,lat, lon, location, decommisioned, estimatedPopulation) "
+    @SqlUpdate("insert into ZipCode (zipCode, zipCodeType, city, state,lat, lon, location, decommisioned, estimatedPopulation) "
     		+ " values (:zipCode, :zipCodeType, :city, :state, :lat, :lon, :location, :decommisioned, :estimatedPopulation)")
     int insert(@BindBean ZipCode something);
     

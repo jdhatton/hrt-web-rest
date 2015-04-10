@@ -14,16 +14,13 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.hrt.data.db.beans.District;
-import com.hrt.web.core.MinimalDistrict;
-import com.hrt.web.core.Saying;
+import com.hrt.data.db.beans.User;
 import com.hrt.web.resources.client.DataSyncResponse;
 
 @Path("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class DataSyncResource {
 
 
@@ -43,9 +40,20 @@ public class DataSyncResource {
 
 	@POST
 	@Timed
+	@Path("/{id}")
 	public DataSyncResponse syncData(@QueryParam("data") String data) {
 
 		System.out.println(" DataSyncResource::syncData() = " + data);
+
+		return new DataSyncResponse("SUCCESS");
+	}
+	
+	@POST
+	@Timed
+	@Path("/{id}")
+	public DataSyncResponse syncData(User user) {
+
+		System.out.println(" DataSyncResource::syncData()  :  User  =  " + user);
 
 		return new DataSyncResponse("SUCCESS");
 	}

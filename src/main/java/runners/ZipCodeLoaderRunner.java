@@ -21,7 +21,8 @@ public class ZipCodeLoaderRunner {
 	public List<ZipCode> run() {
 
 		System.out.println("\n STARTING LOAD \n ");
-		String csvFile = "/home/jdhatton/devenv/workspace01/web-rest-dp/free-zipcode-database-Primary.csv";
+		String csvFile = "/Users/jdhatton/Documents/devenv/projects/hrt-web-rest/hrt-web-rest/free-zipcode-database-Primary.csv"; 
+		//"/home/jdhatton/devenv/workspace01/web-rest-dp/free-zipcode-database-Primary.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
@@ -38,7 +39,7 @@ public class ZipCodeLoaderRunner {
 				} else {
 					// use comma as separator
 					String[] data = line.split(cvsSplitBy);
-					System.out.println(" data length   = " + data.length);
+//					System.out.println(" data length   = " + data.length);
 //					System.out.println(" data[0]  = " + data[0]);
 //					System.out.println(" data[1]  = " + data[1]);
 //					System.out.println(" data[2]  = " + data[2]);
@@ -58,7 +59,7 @@ public class ZipCodeLoaderRunner {
 						zipCode.setEstimatedPopulation(data[10]);
 					}
 					
-					System.out.println(" ZIPCODE  = " + zipCode.toString());
+//					System.out.println(" ZIPCODE  = " + zipCode.toString());
 					zipCodes.add(zipCode);
 				}
 			}

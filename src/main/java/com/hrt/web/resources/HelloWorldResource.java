@@ -54,10 +54,13 @@ public class HelloWorldResource {
 		ZipCodeLoaderRunner obj = new ZipCodeLoaderRunner();
 		List<ZipCode> zips = obj.run();
 		
+		
+		logger.debug("Processing ZipCodes ["+zips.size()+"]");
+		
 		for(ZipCode zip : zips){
 			service.addZipCode(zip);
 		}
-        
+		logger.debug("\nProcessing ZipCodes COMPLETE ");
         
         return new Saying(counter.incrementAndGet(), value);
     }
