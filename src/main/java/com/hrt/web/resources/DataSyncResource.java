@@ -19,8 +19,7 @@ import com.hrt.data.db.beans.User;
 import com.hrt.web.resources.client.DataSyncResponse;
 
 @Path("/registerUser")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+
 public class DataSyncResource {
 
 
@@ -48,6 +47,8 @@ public class DataSyncResource {
 		return new DataSyncResponse("SUCCESS");
 	}
 	
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Timed
 	@Path("/{id}")
