@@ -10,7 +10,7 @@ public interface UserDao {
 	
 	public User findById(long Id);
 	
-	public void addUser(User user) ;
+	public long addUser(User user) ;
 
 	public void updateUser(User user);
 }

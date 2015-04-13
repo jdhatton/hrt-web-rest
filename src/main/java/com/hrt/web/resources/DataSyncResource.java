@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import com.hrt.web.core.User;
+import com.hrt.data.db.beans.User;
 import com.hrt.web.services.UserService;
 
 @Path("/registerUser")
@@ -49,11 +49,39 @@ public class DataSyncResource {
  
 	@POST
 	@Timed
-	public Response syncData( User user) {
+	public Response syncData( String userJson) {
 
 		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData() ");
-		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData()  :  User  =  " + user.toString() + "\n ");
+		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData()  :  User  =  " + userJson+ "\n ");
 
+		long userId;
+		User user =null;
+		//
+		// Parse the json into a user object.
+		//
+//		{
+//			  "id" : 1,
+//			  "schoolDistrict" : "Wyandotte",
+//			  "schoolGrade" : 3,
+//			  "firstName" : "JD",
+//			  "remoteId" : 0,
+//			  "lastName" : "Hatton",
+//			  "status" : 0,
+//			  "registered" : 0,
+//			  "role" : 1,
+//			  "schoolName" : "some school",
+//			  "zipCode" : 66220,
+//			  "email" : "jdhatton@gmail.com",
+//			  "gender" : "Male",
+//			  "paid" : 0
+//			}
+		
+		try{
+			
+			userId = service.addUser(user);
+		} catch(Exception ex){
+			ex.printStackTrace();
+		}
  
 		return Response.status(Response.Status.OK).build();
 	}

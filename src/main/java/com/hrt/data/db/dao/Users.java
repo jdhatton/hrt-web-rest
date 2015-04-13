@@ -14,9 +14,11 @@ import com.hrt.data.db.mappers.UserMapper;
 
 @RegisterMapper(UserMapper.class)
 public interface Users extends Transactional<Users> {
-
-    @SqlUpdate("insert into User (id, name) values (:id, :name)")
-    int insert(@BindBean User something);
+ 
+	
+    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, password, gender, paid ) "
+    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:password ,:gender , :paid    )")
+    int insert(@BindBean User user);
     
     @SqlQuery("select id, email from User where id = :id")
     User findById(@Bind("id") long id);

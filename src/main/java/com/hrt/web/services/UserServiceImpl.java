@@ -2,6 +2,8 @@ package com.hrt.web.services;
 
 import java.util.List;
 
+import org.skife.jdbi.v2.sqlobject.Transaction;
+
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.User;
 import com.hrt.data.db.dao.UserDao;
@@ -23,8 +25,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.findById(Id);		
 	}
 
-	public void addUser(User user) {
-		// TODO Auto-generated method stub
+	@Transaction
+	public long addUser(User user) {
+		return userDao.addUser(user);
 		
 	}
 	
