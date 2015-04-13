@@ -1,12 +1,5 @@
-package com.hrt.data.db.beans;
+package com.hrt.web.core;
 
- 
-
-/**
- *  This class represents a User in the system.
- * @author jdhatton
- *
- */
 public class User {
 
 	private long Id;
@@ -23,10 +16,8 @@ public class User {
 	private String gender;
 	private int status;
 	private int paid;
-
-//	private DateTime lastActivity;
-//	private DateTime lastModified;
-	private String lastModifiedBy;
+    private String deviceToken;
+ 
 	
 	public User() { }
 	
@@ -40,8 +31,7 @@ public class User {
 	public User(long id, String email, String phone, double zipCode,
 			String schoolDistrict, String schoolName, int schoolGrade,
 			int registered, int role, String firstName, String lastName,
-			String gender, int status, int paid, /*DateTime lastActivity,
-			DateTime lastModified,*/ String lastModifiedBy) {
+			String gender, int status, int paid, String deviceToken) {
 		super();
 		Id = id;
 		this.email = email;
@@ -57,9 +47,7 @@ public class User {
 		this.gender = gender;
 		this.status = status;
 		this.paid = paid;
-//		this.lastActivity = lastActivity;
-//		this.lastModified = lastModified;
-		this.lastModifiedBy = lastModifiedBy;
+		this.deviceToken = deviceToken;
 	}
 
 	public long getId() {
@@ -146,23 +134,13 @@ public class User {
 	public void setPaid(int paid) {
 		this.paid = paid;
 	}
-//	public DateTime getLastActivity() {
-//		return lastActivity;
-//	}
-//	public void setLastActivity(DateTime lastActivity) {
-//		this.lastActivity = lastActivity;
-//	}
-//	public DateTime getLastModified() {
-//		return lastModified;
-//	}
-//	public void setLastModified(DateTime lastModified) {
-//		this.lastModified = lastModified;
-//	}
-	public String getLastModifiedBy() {
-		return lastModifiedBy;
+
+	public String getDeviceToken() {
+		return deviceToken;
 	}
-	public void setLastModifiedBy(String lastModifiedBy) {
-		this.lastModifiedBy = lastModifiedBy;
+
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
 	}
 
 	@Override
@@ -170,10 +148,12 @@ public class User {
 		return "User [Id=" + Id + ", email=" + email + ", phone=" + phone + ", zipCode=" + zipCode
 				+ ", schoolDistrict=" + schoolDistrict + ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
 				+ ", registered=" + registered + ", role=" + role + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", lastModifiedBy="
-				+ lastModifiedBy + "]";
+				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", deviceToken="
+				+ deviceToken + "]";
 	}
+ 
 	
 	
 	
 }
+

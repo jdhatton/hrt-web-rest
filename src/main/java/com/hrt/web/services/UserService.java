@@ -10,4 +10,6 @@ public interface UserService {
 	
 	public User getUser( long Id);
 	
+	public void addUser(User user);
+	
 }
