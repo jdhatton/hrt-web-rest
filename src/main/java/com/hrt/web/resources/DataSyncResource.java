@@ -1,5 +1,6 @@
 package com.hrt.web.resources;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ws.rs.Consumes;
@@ -11,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.User;
 import com.hrt.web.services.UserService;
@@ -18,7 +21,7 @@ import com.hrt.web.services.UserService;
 @Path("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class DataSyncResource {
+public class DataSyncResource extends JsonResource{
 
 
 	private final AtomicLong counter;
@@ -53,9 +56,23 @@ public class DataSyncResource {
 
 		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData() ");
 		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData()  :  User  =  " + userJson+ "\n ");
-
+		
+		
+		User user = null;
+		try {
+			user = getMapper().readValue(userJson, User.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		long userId;
-		User user =null;
+		 
 		//
 		// Parse the json into a user object.
 		//

@@ -1,6 +1,8 @@
 package com.hrt.web.core;
 
-public class User {
+public class User extends MappedObject {
+
+	
 
 	private long Id;
 	private String email;
