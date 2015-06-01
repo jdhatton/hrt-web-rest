@@ -4,6 +4,7 @@
 package com.hrt.web.services;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.District;
@@ -43,6 +44,4 @@ public class DistrictServiceImpl implements DistrictService {
 		return districtDao.findByZip(zip);
 	}
 	
-	
-
 }

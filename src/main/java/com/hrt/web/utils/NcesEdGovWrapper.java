@@ -6,6 +6,8 @@ public interface NcesEdGovWrapper {
  	                	  
 	public String searchForDistricts( String zipCode ) throws Exception;
 	
+	public String searchForDistricts( ) throws Exception;
+	
 	public String searchForSchools( String districtName ) throws Exception;
 	
 	

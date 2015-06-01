@@ -1,6 +1,7 @@
 package com.hrt.web.services;
 
 import java.util.List;
+import java.util.Set;
 
 import com.hrt.data.db.beans.District;
 
@@ -13,6 +14,5 @@ public interface DistrictService {
 	public List<District> findByZip(String zip);
 	
 	public List<District> findAll();
-	
-	
+		
 }

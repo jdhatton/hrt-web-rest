@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
@@ -16,9 +17,10 @@ import com.hrt.data.db.mappers.UserMapper;
 public interface Users extends Transactional<Users> {
  
 	
-    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, password, gender, paid ) "
-    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:password ,:gender , :paid    )")
-    int insert(@BindBean User user);
+    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, gender, paid, password ) "
+    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:gender , :paid, :password    )")
+    @GetGeneratedKeys
+    long insert(@BindBean User user);
     
     @SqlQuery("select id, email from User where id = :id")
     User findById(@Bind("id") long id);

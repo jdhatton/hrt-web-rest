@@ -20,8 +20,7 @@ public class UserDaoImpl extends DAO implements UserDao{
 	
 	public long addUser(User user) {
 		Users one = DAO.getDBI().onDemand(Users.class);
-		long id = one.insert(user);
-		return id;
+		return one.insert(user);
 	}
 
 	public void updateUser(User user) {

@@ -11,6 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -21,14 +24,14 @@ import com.hrt.web.services.UserService;
 @Path("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class DataSyncResource extends JsonResource{
-
-
+public class UserResource extends JsonResource{
+	
+	final static Logger logger = LoggerFactory.getLogger(UserResource.class);
 	private final AtomicLong counter;
 	private final UserService service;
 	
 	@Inject
-	public DataSyncResource(UserService service) {
+	public UserResource(UserService service) {
 		this.counter = new AtomicLong();
 		this.service = service;
 	}
@@ -52,55 +55,40 @@ public class DataSyncResource extends JsonResource{
  
 	@POST
 	@Timed
-	public Response syncData( String userJson) {
+	@Path("/add")
+	public User registerUser( String userJson) {
 
-		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData() ");
-		System.out.println("\n >>>>>>>>>    DataSyncResource::syncData()  :  User  =  " + userJson+ "\n ");
+		logger.debug(" DataSyncResource::registerUser()  :  User  =  " + userJson);
 		
-		
+		String remoteUserId = null;
 		User user = null;
+		long userId=0;
 		try {
+			logger.debug(" >> mapping to database ");
 			user = getMapper().readValue(userJson, User.class);
+			if(user != null){
+				userId = service.addUser(user);
+				remoteUserId = Long.toString(userId);
+				user.setRemoteId(remoteUserId);
+			}
 		} catch (JsonParseException e) {
+			logger.debug(" >> JsonParseException  :  " + e.getMessage());
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
+			logger.debug(" >> JsonMappingException  :  " + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
+			logger.debug(" >> IOException  :  " + e.getMessage());
+			e.printStackTrace();
+		} catch(Exception e ){
+			logger.debug(" >> Exception  :  " + e.getMessage());
 			e.printStackTrace();
 		}
 		
-		
-		
-		long userId;
-		 
-		//
-		// Parse the json into a user object.
-		//
-//		{
-//			  "id" : 1,
-//			  "schoolDistrict" : "Wyandotte",
-//			  "schoolGrade" : 3,
-//			  "firstName" : "JD",
-//			  "remoteId" : 0,
-//			  "lastName" : "Hatton",
-//			  "status" : 0,
-//			  "registered" : 0,
-//			  "role" : 1,
-//			  "schoolName" : "some school",
-//			  "zipCode" : 66220,
-//			  "email" : "jdhatton@gmail.com",
-//			  "gender" : "Male",
-//			  "paid" : 0
-//			}
-		
-		try{
-			
-			userId = service.addUser(user);
-		} catch(Exception ex){
-			ex.printStackTrace();
-		}
- 
-		return Response.status(Response.Status.OK).build();
+		logger.debug(" DataSyncResource::syncData()  :  User created   =  " + remoteUserId);
+  
+		 return user;
+//		return Response.status(Response.Status.OK).build();
 	}
 
 //	@POST

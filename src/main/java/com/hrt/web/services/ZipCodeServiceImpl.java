@@ -1,5 +1,7 @@
 package com.hrt.web.services;
 
+import java.util.Set;
+
 import org.skife.jdbi.v2.sqlobject.Transaction;
 
 import com.google.inject.Inject;
@@ -24,6 +26,10 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Set<String> getAllZips(){
+		return zipCodeDao.getAllZips();		
 	}
 
 

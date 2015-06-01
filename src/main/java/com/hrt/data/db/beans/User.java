@@ -23,6 +23,9 @@ public class User {
 	private String gender;
 	private int status;
 	private int paid;
+	String remoteId;
+	String deviceToken;
+	String password;
 
 //	private DateTime lastActivity;
 //	private DateTime lastModified;
@@ -40,8 +43,7 @@ public class User {
 	public User(long id, String email, String phone, double zipCode,
 			String schoolDistrict, String schoolName, int schoolGrade,
 			int registered, int role, String firstName, String lastName,
-			String gender, int status, int paid, /*DateTime lastActivity,
-			DateTime lastModified,*/ String lastModifiedBy) {
+			String gender, int status, int paid, String deviceToken, String remoteId, String password) {
 		super();
 		Id = id;
 		this.email = email;
@@ -57,9 +59,9 @@ public class User {
 		this.gender = gender;
 		this.status = status;
 		this.paid = paid;
-//		this.lastActivity = lastActivity;
-//		this.lastModified = lastModified;
-		this.lastModifiedBy = lastModifiedBy;
+		this.deviceToken = deviceToken;
+		this.remoteId = remoteId;
+		this.password = password;
 	}
 
 	public long getId() {
@@ -165,14 +167,41 @@ public class User {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
+	public String getDeviceToken() {
+		return deviceToken;
+	}
+
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
+	}
+
+	public String getRemoteId() {
+		return remoteId;
+	}
+
+	public void setRemoteId(String remoteId) {
+		this.remoteId = remoteId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "User [Id=" + Id + ", email=" + email + ", phone=" + phone + ", zipCode=" + zipCode
 				+ ", schoolDistrict=" + schoolDistrict + ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
 				+ ", registered=" + registered + ", role=" + role + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", lastModifiedBy="
-				+ lastModifiedBy + "]";
+				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", remoteId=" + remoteId
+				+ ", deviceToken=" + deviceToken + ", password=" + password + ", lastModifiedBy=" + lastModifiedBy
+				+ "]";
 	}
+
+ 
 	
 	
 	

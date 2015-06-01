@@ -19,6 +19,7 @@ public class User extends MappedObject {
 	private int status;
 	private int paid;
     private String deviceToken;
+    private String remoteId;
  
 	
 	public User() { }
@@ -33,7 +34,7 @@ public class User extends MappedObject {
 	public User(long id, String email, String phone, double zipCode,
 			String schoolDistrict, String schoolName, int schoolGrade,
 			int registered, int role, String firstName, String lastName,
-			String gender, int status, int paid, String deviceToken) {
+			String gender, int status, int paid, String deviceToken, String remoteId) {
 		super();
 		Id = id;
 		this.email = email;
@@ -50,6 +51,7 @@ public class User extends MappedObject {
 		this.status = status;
 		this.paid = paid;
 		this.deviceToken = deviceToken;
+		this.remoteId = remoteId;
 	}
 
 	public long getId() {
@@ -145,16 +147,24 @@ public class User extends MappedObject {
 		this.deviceToken = deviceToken;
 	}
 
+	public String getRemoteId() {
+		return remoteId;
+	}
+
+	public void setRemoteId(String remoteId) {
+		this.remoteId = remoteId;
+	}
+
 	@Override
 	public String toString() {
 		return "User [Id=" + Id + ", email=" + email + ", phone=" + phone + ", zipCode=" + zipCode
 				+ ", schoolDistrict=" + schoolDistrict + ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
 				+ ", registered=" + registered + ", role=" + role + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", deviceToken="
-				+ deviceToken + "]";
+				+ deviceToken + ", remoteId=" + remoteId + "]";
 	}
- 
 	
+
 	
 	
 }
