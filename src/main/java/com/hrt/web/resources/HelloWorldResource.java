@@ -3,7 +3,6 @@
  */
 package com.hrt.web.resources;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ws.rs.DefaultValue;
@@ -16,16 +15,15 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import runners.ZipCodeLoaderRunner;
-
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import com.hrt.data.db.beans.ZipCode;
 import com.hrt.web.core.Saying;
-import com.hrt.web.services.DistrictService;
 import com.hrt.web.services.ZipCodeService;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/hello-world")
+@Api("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
  
@@ -41,6 +39,7 @@ public class HelloWorldResource {
     }
 
     @GET
+    @ApiOperation("sayHello")
     @Timed
     public Saying sayHello(@DefaultValue("null")  @QueryParam("name") String name) {
     	
@@ -51,16 +50,16 @@ public class HelloWorldResource {
         //
         // For now we can trigger this here
         //
-		ZipCodeLoaderRunner obj = new ZipCodeLoaderRunner();
-		List<ZipCode> zips = obj.run();
-		
-		
-		logger.debug("Processing ZipCodes ["+zips.size()+"]");
-		
-		for(ZipCode zip : zips){
-			service.addZipCode(zip);
-		}
-		logger.debug("\nProcessing ZipCodes COMPLETE ");
+//		ZipCodeLoaderRunner obj = new ZipCodeLoaderRunner();
+//		List<ZipCode> zips = obj.run();
+//		
+//		
+//		logger.debug("Processing ZipCodes ["+zips.size()+"]");
+//		
+//		for(ZipCode zip : zips){
+//			service.addZipCode(zip);
+//		}
+//		logger.debug("\nProcessing ZipCodes COMPLETE ");
         
         return new Saying(counter.incrementAndGet(), value);
     }

@@ -80,3 +80,7 @@ logging:
       timeZone: UTC
 
 # the key needs to match the suffix of the renderer
+
+# the only required property is resourcePackage, for more config options see below
+swagger:
+  resourcePackage: com.hrt.web.resources

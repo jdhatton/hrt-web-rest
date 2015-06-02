@@ -1,6 +1,7 @@
 package com.hrt.web.dp;
 
 import io.dropwizard.Configuration;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -14,6 +15,9 @@ public class HelloWorldConfiguration extends Configuration {
     @NotEmpty
     private String defaultName = "Stranger";
    
+    @JsonProperty("swagger")
+    public SwaggerBundleConfiguration swaggerBundleConfiguration;
+    
     @JsonProperty
     public String getTemplate() {
         return template;

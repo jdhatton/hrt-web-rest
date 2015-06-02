@@ -20,8 +20,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.User;
 import com.hrt.web.services.UserService;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/registerUser")
+@Api("/registerUser")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource extends JsonResource{
@@ -54,6 +57,7 @@ public class UserResource extends JsonResource{
 //	}
  
 	@POST
+	 @ApiOperation("add")
 	@Timed
 	@Path("/add")
 	public User registerUser( String userJson) {

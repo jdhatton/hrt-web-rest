@@ -3,6 +3,8 @@ package com.hrt.web;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -16,9 +18,10 @@ import com.hrt.data.db.dao.UserDaoImpl;
 import com.hrt.data.db.dao.ZipCodeDao;
 import com.hrt.data.db.dao.ZipCodeDaoImpl;
 import com.hrt.web.dp.HelloWorldConfiguration;
-import com.hrt.web.resources.UserResource;
 import com.hrt.web.resources.FeedbackResource;
 import com.hrt.web.resources.HelloWorldResource;
+import com.hrt.web.resources.RemoteSyncResource;
+import com.hrt.web.resources.UserResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
 import com.hrt.web.services.DistrictService;
 import com.hrt.web.services.DistrictServiceImpl;
@@ -44,6 +47,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 	    @Override
 	    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
 
+	    	bootstrap.addBundle(new SwaggerBundle<HelloWorldConfiguration>() {
+	            @Override
+	            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(HelloWorldConfiguration configuration) {
+	                return configuration.swaggerBundleConfiguration;
+	            }
+	        });
 	    }
 	    
 	    @Override
@@ -61,6 +70,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 	    	environment.jersey().register(injector.getInstance(ZipDistrictSchoolResource.class));
 	    	environment.jersey().register(injector.getInstance(UserResource.class));
 	    	environment.jersey().register(injector.getInstance(FeedbackResource.class));
+	    	environment.jersey().register(injector.getInstance(RemoteSyncResource.class));
 	    }
 	    
 	    
