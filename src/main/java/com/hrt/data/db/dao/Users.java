@@ -16,9 +16,11 @@ import com.hrt.data.db.mappers.UserMapper;
 @RegisterMapper(UserMapper.class)
 public interface Users extends Transactional<Users> {
  
-	
-    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, gender, paid, password ) "
-    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:gender , :paid, :password    )")
+	//
+	// TODO: add a deviceToken field to the DB
+	//
+    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, gender, paid, password, phone ) "
+    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:gender , :paid, :password, :deviceId    )")
     @GetGeneratedKeys
     long insert(@BindBean User user);
     

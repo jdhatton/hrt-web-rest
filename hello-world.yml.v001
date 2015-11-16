@@ -1,24 +1,21 @@
-
-
 template: Hello, %s!
 
 defaultName: ${DW_DEFAULT_NAME:-Stranger}
-
 
 # Database settings.
 #database:
 
   # the name of your JDBC driver
-#driverClass: org.h2.Driver
+ # driverClass: org.h2.Driver
 
   # the username
  # user: sa
 
   # the password
- # password: sa
+#  password: sa
 
   # the JDBC URL
- # url: jdbc:h2:./target/example
+#  url: jdbc:h2:./target/example
 
 # use the simple server factory if you only want to run on a single port
 #server:
@@ -38,25 +35,20 @@ server:
       keyStorePath: keystore.jks
       keyStorePassword: superj00
       validateCerts: false
-      supportedProtocols: SSLv3, TLSv1
-      supportedCipherSuites: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
-      
 # this requires the alpn-boot library on the JVM's boot classpath
 #    - type: spdy3
 #      port: 8445
 #      keyStorePath: example.keystore
 #      keyStorePassword: example
 #      validateCerts: false
-  adminConnectors:
-    - type: http
-      port: 8081
-    - type: https
-      port: 8444
-      keyStorePath: keystore.jks
-      keyStorePassword: superj00
-      validateCerts: false
-
-
+#  adminConnectors:
+#    - type: http
+#      port: 9081
+#    - type: https
+#      port: 9444
+#      keyStorePath: example.keystore
+#      keyStorePassword: example
+#      validateCerts: false
 
 # Logging settings.
 logging:
@@ -70,7 +62,7 @@ logging:
     # Sets the level for 'com.example.app' to DEBUG.
     com.hrt: DEBUG
 
-    org.hibernate.SQL: ALL
+#    org.hibernate.SQL: ALL
 
   appenders:
     - type: console
@@ -83,7 +75,14 @@ logging:
       timeZone: UTC
 
 # the key needs to match the suffix of the renderer
+#viewRendererConfiguration:
+#    .ftl:
+#        strict_syntax: yes
+#        whitespace_stripping: yes
 
 # the only required property is resourcePackage, for more config options see below
 swagger:
   resourcePackage: com.hrt.web.resources
+
+
+

@@ -24,7 +24,7 @@ public class User {
 	private int status;
 	private int paid;
 	String remoteId;
-	String deviceToken;
+	String deviceId;
 	String password;
 
 //	private DateTime lastActivity;
@@ -59,7 +59,7 @@ public class User {
 		this.gender = gender;
 		this.status = status;
 		this.paid = paid;
-		this.deviceToken = deviceToken;
+		this.deviceId = deviceToken;
 		this.remoteId = remoteId;
 		this.password = password;
 	}
@@ -167,12 +167,12 @@ public class User {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public String getDeviceToken() {
-		return deviceToken;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setDeviceToken(String deviceToken) {
-		this.deviceToken = deviceToken;
+	public void setDeviceId(String deviceToken) {
+		this.deviceId = deviceToken;
 	}
 
 	public String getRemoteId() {
@@ -197,7 +197,7 @@ public class User {
 				+ ", schoolDistrict=" + schoolDistrict + ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
 				+ ", registered=" + registered + ", role=" + role + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", remoteId=" + remoteId
-				+ ", deviceToken=" + deviceToken + ", password=" + password + ", lastModifiedBy=" + lastModifiedBy
+				+ ", deviceId=" + deviceId + ", password=" + password + ", lastModifiedBy=" + lastModifiedBy
 				+ "]";
 	}
 
