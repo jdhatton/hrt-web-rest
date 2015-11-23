@@ -26,6 +26,8 @@ public class User {
 	String remoteId;
 	String deviceId;
 	String password;
+	String deleted;
+	
 
 //	private DateTime lastActivity;
 //	private DateTime lastModified;
@@ -189,6 +191,16 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override
