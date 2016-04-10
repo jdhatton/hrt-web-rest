@@ -10,13 +10,13 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hrt.data.db.dao.DistrictDao;
-import com.hrt.data.db.dao.DistrictDaoImpl;
 import com.hrt.data.db.dao.FeedbackDao;
-import com.hrt.data.db.dao.FeedbackDaoImpl;
 import com.hrt.data.db.dao.UserDao;
-import com.hrt.data.db.dao.UserDaoImpl;
 import com.hrt.data.db.dao.ZipCodeDao;
-import com.hrt.data.db.dao.ZipCodeDaoImpl;
+import com.hrt.data.db.dao.impl.DistrictDaoImpl;
+import com.hrt.data.db.dao.impl.FeedbackDaoImpl;
+import com.hrt.data.db.dao.impl.UserDaoImpl;
+import com.hrt.data.db.dao.impl.ZipCodeDaoImpl;
 import com.hrt.web.dp.HelloWorldConfiguration;
 import com.hrt.web.resources.FeedbackResource;
 import com.hrt.web.resources.HelloWorldResource;
@@ -24,13 +24,13 @@ import com.hrt.web.resources.RemoteSyncResource;
 import com.hrt.web.resources.UserResource;
 import com.hrt.web.resources.ZipDistrictSchoolResource;
 import com.hrt.web.services.DistrictService;
-import com.hrt.web.services.DistrictServiceImpl;
 import com.hrt.web.services.FeedbackService;
-import com.hrt.web.services.FeedbackServiceImpl;
 import com.hrt.web.services.UserService;
-import com.hrt.web.services.UserServiceImpl;
 import com.hrt.web.services.ZipCodeService;
-import com.hrt.web.services.ZipCodeServiceImpl;
+import com.hrt.web.services.impl.DistrictServiceImpl;
+import com.hrt.web.services.impl.FeedbackServiceImpl;
+import com.hrt.web.services.impl.UserServiceImpl;
+import com.hrt.web.services.impl.ZipCodeServiceImpl;
 
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {

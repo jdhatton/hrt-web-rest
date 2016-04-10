@@ -18,7 +18,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.Feedback;
-import com.hrt.data.db.beans.User;
 import com.hrt.web.services.FeedbackService;
 
 @Path("/feedback")

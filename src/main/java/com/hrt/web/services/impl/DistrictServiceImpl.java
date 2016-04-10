@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.hrt.web.services;
+package com.hrt.web.services.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.District;
 import com.hrt.data.db.dao.DistrictDao;
+import com.hrt.web.services.DistrictService;
 
 /**
  * @author jdhatton

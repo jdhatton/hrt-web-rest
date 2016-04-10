@@ -17,7 +17,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
-import com.hrt.data.db.beans.Feedback;
 import com.hrt.data.db.beans.Invitation;
 import com.hrt.web.services.InvitationService;
 

@@ -1,7 +1,6 @@
 package com.hrt.web.services;
 
 import java.util.List;
-import java.util.Set;
 
 import com.hrt.data.db.beans.District;
 
