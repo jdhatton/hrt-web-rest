@@ -37,6 +37,5 @@ public class HelloWorldConfiguration extends Configuration {
     public void setDefaultName(String name) {
         this.defaultName = name;
     }
-	
 
 }
