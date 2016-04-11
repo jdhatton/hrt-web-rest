@@ -7,6 +7,7 @@ import org.skife.jdbi.v2.sqlobject.Transaction;
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.Classroom;
 import com.hrt.data.db.beans.ClassroomBehavior;
+import com.hrt.data.db.beans.ClassroomParent;
 import com.hrt.data.db.beans.ClassroomStudent;
 import com.hrt.data.db.beans.StudentBehavior;
 import com.hrt.data.db.dao.ClassroomBehaviorDao;
@@ -81,6 +82,21 @@ public class ClassroomServiceImpl implements ClassroomService{
 	@Transaction
 	public long addStudentBehavior(StudentBehavior studentBehavior) {
 		return studentBehaviorDao.add(studentBehavior);
+	}
+
+	public List<ClassroomParent> getAllClassroomParents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ClassroomParent getClassroomParent(long Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public long addClassroomParent(ClassroomParent classroomParent) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
