@@ -25,12 +25,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.hrt.data.db.beans.District;
-import com.hrt.data.db.dao.DistrictDaoImpl;
-import com.hrt.data.db.dao.ZipCodeDaoImpl;
+import com.hrt.data.db.dao.impl.DistrictDaoImpl;
+import com.hrt.data.db.dao.impl.ZipCodeDaoImpl;
 import com.hrt.web.services.DistrictService;
-import com.hrt.web.services.DistrictServiceImpl;
 import com.hrt.web.services.ZipCodeService;
-import com.hrt.web.services.ZipCodeServiceImpl;
+import com.hrt.web.services.impl.DistrictServiceImpl;
+import com.hrt.web.services.impl.ZipCodeServiceImpl;
 
 public class NcesEdGovWrapperImpl implements NcesEdGovWrapper {
 

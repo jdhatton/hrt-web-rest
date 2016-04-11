@@ -2,7 +2,6 @@ package com.hrt.data.db.dao;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;

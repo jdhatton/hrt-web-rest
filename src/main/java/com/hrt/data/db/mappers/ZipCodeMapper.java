@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import com.hrt.data.db.beans.District;
 import com.hrt.data.db.beans.ZipCode;
 
 public class ZipCodeMapper  implements ResultSetMapper<ZipCode> {
