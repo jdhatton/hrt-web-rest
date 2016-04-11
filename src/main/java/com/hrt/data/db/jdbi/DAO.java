@@ -1,9 +1,7 @@
-package com.hrt.data.db.dao;
+package com.hrt.data.db.jdbi;
 
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
-
-import com.hrt.data.db.jdbi.Connection;
 
 public abstract class DAO {
 

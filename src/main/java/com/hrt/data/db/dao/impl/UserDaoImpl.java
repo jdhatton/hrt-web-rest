@@ -3,9 +3,9 @@ package com.hrt.data.db.dao.impl;
 import java.util.List;
 
 import com.hrt.data.db.beans.User;
-import com.hrt.data.db.dao.DAO;
 import com.hrt.data.db.dao.UserDao;
 import com.hrt.data.db.dao.Users;
+import com.hrt.data.db.jdbi.DAO;
 
 public class UserDaoImpl extends DAO implements UserDao{
 	 

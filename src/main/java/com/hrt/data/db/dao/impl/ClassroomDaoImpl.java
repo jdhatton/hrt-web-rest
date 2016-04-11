@@ -7,8 +7,8 @@ import com.hrt.data.db.beans.Classroom;
 import com.hrt.data.db.beans.User;
 import com.hrt.data.db.dao.ClassroomDao;
 import com.hrt.data.db.dao.Classrooms;
-import com.hrt.data.db.dao.DAO;
 import com.hrt.data.db.dao.Users;
+import com.hrt.data.db.jdbi.DAO;
 
 public class ClassroomDaoImpl extends DAO implements ClassroomDao {
 

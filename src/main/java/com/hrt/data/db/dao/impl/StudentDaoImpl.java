@@ -3,9 +3,9 @@ package com.hrt.data.db.dao.impl;
 import java.util.List;
 
 import com.hrt.data.db.beans.Student;
-import com.hrt.data.db.dao.DAO;
 import com.hrt.data.db.dao.StudentDao;
 import com.hrt.data.db.dao.Students;
+import com.hrt.data.db.jdbi.DAO;
 
 public class StudentDaoImpl extends DAO implements StudentDao {
 

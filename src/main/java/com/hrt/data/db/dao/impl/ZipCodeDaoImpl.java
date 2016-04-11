@@ -3,9 +3,9 @@ package com.hrt.data.db.dao.impl;
 import java.util.Set;
 
 import com.hrt.data.db.beans.ZipCode;
-import com.hrt.data.db.dao.DAO;
 import com.hrt.data.db.dao.ZipCodeDao;
 import com.hrt.data.db.dao.ZipCodes;
+import com.hrt.data.db.jdbi.DAO;
 
 public class ZipCodeDaoImpl extends DAO implements ZipCodeDao {
 

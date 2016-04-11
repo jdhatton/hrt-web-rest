@@ -6,9 +6,9 @@ package com.hrt.data.db.dao.impl;
 import java.util.List;
 
 import com.hrt.data.db.beans.District;
-import com.hrt.data.db.dao.DAO;
 import com.hrt.data.db.dao.DistrictDao;
 import com.hrt.data.db.dao.Districts;
+import com.hrt.data.db.jdbi.DAO;
 
 /**
  * @author jdhatton
