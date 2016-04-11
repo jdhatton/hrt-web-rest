@@ -17,7 +17,7 @@ public class Student {
 	private int status;
 	private int paid;
 	String remoteId;
-	String deviceId;
+	String deviceId; // store the provided studentId from the app here !?!
 	String password;
 	String deleted;
 	

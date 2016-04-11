@@ -24,6 +24,7 @@ import com.google.inject.Inject;
 import com.hrt.data.db.beans.Classroom;
 import com.hrt.data.db.beans.ClassroomStudent;
 import com.hrt.data.db.beans.Student;
+import com.hrt.data.db.beans.StudentBehavior;
 import com.hrt.web.services.ClassroomService;
 import com.hrt.web.services.StudentService;
 import com.hrt.web.services.UserService;
@@ -77,49 +78,37 @@ public class RemoteSyncResource extends JsonResource {
 			// object for this before parsing.
 			//
 			student = getMapper().readValue(strJson, Student.class);
+
 			if (student != null) {
 				// 1). Create a Student record.
 				logger.debug(" >> creating student ");
 				studentId = studentService.add(student);
 				remoteUserId = Long.toString(studentId);
 				student.setRemoteId(remoteUserId);
-			}
 
-			// 1). Get the Classroom with TeacherId
-			logger.debug(" >> creating classroom ");
-			Classroom classroom = classroomService.getClassroom(new Long(teacherId).longValue());
+				// 1). Get the Classroom with TeacherId
+				logger.debug(" >> creating classroom ");
+				Classroom classroom = classroomService.getClassroom(new Long(teacherId).longValue());
 
-			// 2). Create a ClassroomStudent record with the newly created
-			ClassroomStudent classroomStudent = new ClassroomStudent(classroom.getId(), student.getId()); 
-			if( classroomService.addClassroomStudent(classroomStudent) < 0 ) {
-				//
-				//TODO:  We had an error creating this record. Log the Error.
-				//
+				// 2). Create a ClassroomStudent record with the newly created
+				ClassroomStudent classroomStudent = new ClassroomStudent(classroom.getId(), student.getId());
+				if (classroomService.addClassroomStudent(classroomStudent) < 0) {
+					//
+					// TODO: We had an error creating this record. Log the
+					// Error.
+					//
+					logger.error("\n\n ERROR adding student: creating ClassroomStudent record %", strJson);
+				}
 			}
 		} catch (JsonParseException e) {
-			logger.debug(" >> JsonParseException  :  " + e.getMessage());
-			e.printStackTrace();
+			logger.error("Exception : % ", e);
 		} catch (JsonMappingException e) {
-			logger.debug(" >> JsonMappingException  :  " + e.getMessage());
-			e.printStackTrace();
+			logger.error("Exception : % ", e);
 		} catch (IOException e) {
-			logger.debug(" >> IOException  :  " + e.getMessage());
-			e.printStackTrace();
+			logger.error("IOException  :  % ", e);
 		} catch (Exception e) {
-			logger.debug(" >> Exception  :  " + e.getMessage());
-			e.printStackTrace();
+			logger.error("Exception  :  % ", e);
 		}
-
-		return Response.status(Response.Status.OK).build();
-	}
-
-	@POST
-	@ApiOperation("comments")
-	@Timed
-	@Path("/comments")
-	public Response syncComments(String strJson) {
-
-		logger.debug(" RemoteSyncResource::syncComments()  :  strJson  =  " + strJson);
 
 		return Response.status(Response.Status.OK).build();
 	}
@@ -133,12 +122,61 @@ public class RemoteSyncResource extends JsonResource {
 		logger.debug(" RemoteSyncResource::syncBehaviors()  :  strJson  =  " + strJson);
 
 		//
-		// TODO: we should get he TeacherId, StudentId, Behavior, and the
-		// Behavior Status
+		// TODO: Insert a new record in to the StudentBehavior table. 
+		// 
+		// ASSUMPTION: json complies with the StudentBehavior object and has the required values.
 		//
+		// NOTE: The json could be an array of StudentBehavior records.
+		// 
+		StudentBehavior behavior; 
+		try {
+			behavior = getMapper().readValue(strJson, StudentBehavior.class);
+			logger.debug(" >> inserting StudentBehavior record. ");
+			classroomService.addStudentBehavior(behavior);
+		} catch (JsonParseException e) {
+			logger.error("Exception : % ", e);
+		} catch (JsonMappingException e) {
+			logger.error("Exception : % ", e);
+		} catch (IOException e) {
+			logger.error("IOException  :  % ", e);
+		} catch (Exception e) {
+			logger.error("Exception  :  % ", e);
+		}
+		logger.debug(" Returning - Behaviors synched."); 
+		return Response.status(Response.Status.OK).build();
+	}
+	
+	@POST
+	@ApiOperation("comments")
+	@Timed
+	@Path("/comments")
+	public Response syncComments(String strJson) {
 
-		// 1). Insert record into the ClassroomBehaviors table.
+		logger.debug(" RemoteSyncResource::syncComments()  :  strJson  =  " + strJson);
 
+		//
+		// TODO: Insert a new record in to the StudentBehavior table. 
+		// 
+		// ASSUMPTION: json complies with the StudentBehavior object and has the required values.
+		//
+		// NOTE: The json could be an array of StudentBehavior records.
+		// 
+		
+		StudentBehavior behavior; 
+		try {
+			behavior = getMapper().readValue(strJson, StudentBehavior.class);
+			logger.debug(" >> inserting StudentBehavior record. ");
+			classroomService.addStudentBehavior(behavior);
+		} catch (JsonParseException e) {
+			logger.error("Exception : % ", e);
+		} catch (JsonMappingException e) {
+			logger.error("Exception : % ", e);
+		} catch (IOException e) {
+			logger.error("IOException  :  % ", e);
+		} catch (Exception e) {
+			logger.error("Exception  :  % ", e);
+		}
+		logger.debug(" Returning - Behaviors synched."); 
 		return Response.status(Response.Status.OK).build();
 	}
 
@@ -150,6 +188,12 @@ public class RemoteSyncResource extends JsonResource {
 
 		logger.debug(" RemoteSyncResource::syncAll()  :  strJson  =  " + strJson);
 
+		//
+		// TODO: in the future we would like to be able to cache all the interactive data to be 
+		//  saved on the device until a netwrok connection is available then push it all to a 
+		//  single end-point to be stored server side. 
+		//
+		
 		return Response.status(Response.Status.OK).build();
 	}
 
