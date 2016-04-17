@@ -66,6 +66,32 @@ public class RemoteSyncResource extends JsonResource {
 	public Response addStudent(String strJson) {
 
 		logger.debug(" RemoteSyncResource::addStudent()  :  strJson  =  " + strJson);
+		
+		
+		/**
+		 
+		  DEBUG [2016-04-14 14:51:42,594] com.hrt.web.resources.RemoteSyncResource:  RemoteSyncResource::addStudent()  :  strJson  =  
+		  {
+			  "id" : 4,
+			  "paid" : 0,
+			  "schoolGrade" : 0,
+			  "firstName" : "Chester HappyDick",
+			  "registered" : 0,
+			  "teacherId" : "152",
+			  "behavior" : "hands to self",
+			  "deleted" : false,
+			  "role" : 2,
+			  "zipCode" : 0,
+			  "status" : 0,
+			  "studentIdNumber" : "121212"
+			}
+
+		  
+		 */
+		
+		
+		
+		
 
 		String teacherId = "";
 		String remoteUserId = null;

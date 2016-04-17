@@ -1,23 +1,18 @@
 
-
 template: Hello, %s!
 
 defaultName: ${DW_DEFAULT_NAME:-Stranger}
 
-
 # Database settings.
 #database:
 
-  # the name of your JDBC driver
+# the name of your JDBC driver
 #driverClass: org.h2.Driver
-
-  # the username
+ # the username
  # user: sa
-
-  # the password
+ # the password
  # password: sa
-
-  # the JDBC URL
+ # the JDBC URL
  # url: jdbc:h2:./target/example
 
 # use the simple server factory if you only want to run on a single port
@@ -56,8 +51,6 @@ server:
       keyStorePassword: superj00
       validateCerts: false
 
-
-
 # Logging settings.
 logging:
 
@@ -69,7 +62,6 @@ logging:
 
     # Sets the level for 'com.example.app' to DEBUG.
     com.hrt: DEBUG
-
     org.hibernate.SQL: ALL
 
   appenders:
@@ -81,8 +73,6 @@ logging:
       archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log
       archivedFileCount: 7
       timeZone: UTC
-
-# the key needs to match the suffix of the renderer
 
 # the only required property is resourcePackage, for more config options see below
 swagger:

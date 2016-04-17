@@ -6,9 +6,7 @@ public class Student {
 	private String email;
 	private String phone;
 	private double zipCode;
-	private String schoolDistrict;
-	private String schoolName;
-	private int schoolGrade;
+	private String studentId;
 	private int registered;
 	private int role;
 	private String firstName;
@@ -23,19 +21,49 @@ public class Student {
 	
 	
 	public Student(){}
+
+	public Student(String email, String phone, double zipCode, String studentId, int registered, int role,
+			String firstName, String lastName, int status, String remoteId, String password) {
+		super();
+		this.email = email;
+		this.phone = phone;
+		this.zipCode = zipCode;
+		this.studentId = studentId;
+		this.registered = registered;
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.status = status;
+		this.remoteId = remoteId;
+		this.password = password;
+	}
 	
-	public Student(long id, String email, String phone, double zipCode,
-			String schoolDistrict, String schoolName, int schoolGrade,
-			int registered, int role, String firstName, String lastName,
-			String gender, int status, int paid, String deviceToken, String remoteId, String password) {
+	public Student(long id, String email, String phone, double zipCode, String studentId, int registered, int role,
+			String firstName, String lastName, int status, String remoteId, String password) {
+		super();
+		this.Id = id;
+		this.email = email;
+		this.phone = phone;
+		this.zipCode = zipCode;
+		this.studentId = studentId;
+		this.registered = registered;
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.status = status;
+		this.remoteId = remoteId;
+		this.password = password;
+	}
+
+	public Student(long id, String email, String phone, double zipCode, String studentId, int registered, int role,
+			String firstName, String lastName, String gender, int status, int paid, String remoteId, String deviceId,
+			String password, String deleted) {
 		super();
 		Id = id;
 		this.email = email;
 		this.phone = phone;
 		this.zipCode = zipCode;
-		this.schoolDistrict = schoolDistrict;
-		this.schoolName = schoolName;
-		this.schoolGrade = schoolGrade;
+		this.studentId = studentId;
 		this.registered = registered;
 		this.role = role;
 		this.firstName = firstName;
@@ -43,30 +71,10 @@ public class Student {
 		this.gender = gender;
 		this.status = status;
 		this.paid = paid;
-		this.deviceId = deviceToken;
 		this.remoteId = remoteId;
-		this.password = password;
-	}
-	
-	public Student(String email, String phone, double zipCode, String schoolDistrict, String schoolName,
-			int schoolGrade, int registered, int role, String firstName, String lastName, String gender, int status,
-			int paid, String deviceId, String password) {
-		super();
-		this.email = email;
-		this.phone = phone;
-		this.zipCode = zipCode;
-		this.schoolDistrict = schoolDistrict;
-		this.schoolName = schoolName;
-		this.schoolGrade = schoolGrade;
-		this.registered = registered;
-		this.role = role;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
-		this.status = status;
-		this.paid = paid;
 		this.deviceId = deviceId;
 		this.password = password;
+		this.deleted = deleted;
 	}
 
 	public long getId() {
@@ -99,30 +107,6 @@ public class Student {
 
 	public void setZipCode(double zipCode) {
 		this.zipCode = zipCode;
-	}
-
-	public String getSchoolDistrict() {
-		return schoolDistrict;
-	}
-
-	public void setSchoolDistrict(String schoolDistrict) {
-		this.schoolDistrict = schoolDistrict;
-	}
-
-	public String getSchoolName() {
-		return schoolName;
-	}
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	public int getSchoolGrade() {
-		return schoolGrade;
-	}
-
-	public void setSchoolGrade(int schoolGrade) {
-		this.schoolGrade = schoolGrade;
 	}
 
 	public int getRegistered() {
@@ -211,6 +195,20 @@ public class Student {
 
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
+	}
+
+
+
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+
+
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 	
 	
