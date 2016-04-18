@@ -69,7 +69,6 @@ public class RemoteSyncResource extends JsonResource {
 		
 		
 		/**
-		 
 		  DEBUG [2016-04-14 14:51:42,594] com.hrt.web.resources.RemoteSyncResource:  RemoteSyncResource::addStudent()  :  strJson  =  
 		  {
 			  "id" : 4,
@@ -85,14 +84,9 @@ public class RemoteSyncResource extends JsonResource {
 			  "status" : 0,
 			  "studentIdNumber" : "121212"
 			}
-
-		  
 		 */
 		
 		
-		
-		
-
 		String teacherId = "";
 		String remoteUserId = null;
 		Student student = null;
@@ -119,11 +113,13 @@ public class RemoteSyncResource extends JsonResource {
 				// 2). Create a ClassroomStudent record with the newly created
 				ClassroomStudent classroomStudent = new ClassroomStudent(classroom.getId(), student.getId());
 				if (classroomService.addClassroomStudent(classroomStudent) < 0) {
-					//
-					// TODO: We had an error creating this record. Log the
-					// Error.
-					//
-					logger.error("\n\n ERROR adding student: creating ClassroomStudent record %", strJson);
+					ClassroomStudent classRmStudent = new ClassroomStudent();
+					classRmStudent.setClassroomId(classroom.getId());
+					classRmStudent.setStudentId(student.getId());
+					long classRmStudentId = classroomService.addClassroomStudent(classroomStudent);
+					if(classRmStudentId <= 0){
+						logger.error("\n\n ERROR adding student: creating ClassroomStudent record %", strJson);
+					}
 				}
 			}
 		} catch (JsonParseException e) {
