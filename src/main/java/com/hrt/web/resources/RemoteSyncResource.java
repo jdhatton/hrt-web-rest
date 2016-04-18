@@ -137,12 +137,23 @@ public class RemoteSyncResource extends JsonResource {
 
 	@POST
 	@Timed
-	@ApiOperation("behaviors")
-	@Path("/behaviors")
-	public Response syncBehaviors(String strJson) {
+	@ApiOperation("behavior")
+	@Path("/behavior")
+	public Response syncBehavior(String strJson) {
 
 		logger.debug(" RemoteSyncResource::syncBehaviors()  :  strJson  =  " + strJson);
 
+		/**
+			strJson  =  {
+			  "statusComment" : "TEsting 1.2.2",
+			  "createdDate" : "2016-04-18T15:28:04",
+			  "statusId" : 1,
+			  "studentId" : 2,
+			  "teacherId" : "152"
+			}
+		 */
+		
+		
 		//
 		// TODO: Insert a new record in to the StudentBehavior table. 
 		// 
@@ -167,6 +178,52 @@ public class RemoteSyncResource extends JsonResource {
 		logger.debug(" Returning - Behaviors synched."); 
 		return Response.status(Response.Status.OK).build();
 	}
+	
+	
+	@POST
+	@Timed
+	@ApiOperation("behaviors")
+	@Path("/behaviors")
+	public Response syncBehaviors(String strJson) {
+
+		logger.debug(" RemoteSyncResource::syncBehaviors()  :  strJson  =  " + strJson);
+
+		/**
+			strJson  =  {
+			  "statusComment" : "TEsting 1.2.2",
+			  "createdDate" : "2016-04-18T15:28:04",
+			  "statusId" : 1,
+			  "studentId" : 2,
+			  "teacherId" : "152"
+			}
+		 */
+		
+		
+		//
+		// TODO: Insert a new record in to the StudentBehavior table. 
+		// 
+		// ASSUMPTION: json complies with the StudentBehavior object and has the required values.
+		//
+		// NOTE: The json could be an array of StudentBehavior records.
+		// 
+		StudentBehavior behavior; 
+		try {
+			behavior = getMapper().readValue(strJson, StudentBehavior.class);
+			logger.debug(" >> inserting StudentBehavior record. ");
+			classroomService.addStudentBehavior(behavior);
+		} catch (JsonParseException e) {
+			logger.error("Exception : % ", e);
+		} catch (JsonMappingException e) {
+			logger.error("Exception : % ", e);
+		} catch (IOException e) {
+			logger.error("IOException  :  % ", e);
+		} catch (Exception e) {
+			logger.error("Exception  :  % ", e);
+		}
+		logger.debug(" Returning - Behaviors synched."); 
+		return Response.status(Response.Status.OK).build();
+	}
+	
 	
 	@POST
 	@ApiOperation("comments")
