@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.hrt</groupId>
   <artifactId>web-rest-dp</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2</version>
   <name>HRT-REST-WEB-DP</name>
   <description>Rest Services for HRT </description>
   
