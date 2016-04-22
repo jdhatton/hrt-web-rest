@@ -1,5 +1,8 @@
 package com.hrt.data.db.beans;
 
+import com.hrt.data.db.enums.UserRole;
+import com.hrt.web.resources.client.AddStudentDto;
+
 public class Student {
 
 	private long Id;
@@ -21,6 +24,18 @@ public class Student {
 	
 	
 	public Student(){}
+	
+	public Student(AddStudentDto dto){
+		
+		this.deleted = "false";
+		this.studentId = dto.getId();
+		this.paid = 0;
+		this.firstName = dto.getFirstName();
+		this.deleted = dto.getDeleted();
+		this.role = UserRole.STUDENT.getValue();
+		this.setLastName(dto.getStudentIdNumber());
+	
+	}
 
 	public Student(String email, String phone, double zipCode, String studentId, int registered, int role,
 			String firstName, String lastName, int status, String remoteId, String password) {

@@ -25,6 +25,7 @@ import com.hrt.data.db.beans.Classroom;
 import com.hrt.data.db.beans.ClassroomStudent;
 import com.hrt.data.db.beans.Student;
 import com.hrt.data.db.beans.StudentBehavior;
+import com.hrt.web.resources.client.AddStudentDto;
 import com.hrt.web.services.ClassroomService;
 import com.hrt.web.services.StudentService;
 import com.hrt.web.services.UserService;
@@ -92,14 +93,22 @@ public class RemoteSyncResource extends JsonResource {
 		Student student = null;
 		long studentId = 0;
 		try {
-			logger.debug(" >> mapping to database ");
+			logger.debug(" >> mapping new student to database ");
 			//
 			// TODO: does this map into a student? or should we have a hybrid
 			// object for this before parsing.
 			//
-			student = getMapper().readValue(strJson, Student.class);
+			AddStudentDto dto = getMapper().readValue(strJson, AddStudentDto.class);
+			logger.debug("Parsed student DTO: %", dto.toString());
+			
 
-			if (student != null) {
+			if (dto != null) {
+				student = new Student(dto);
+				//
+				// TODO: load the student object from the dto object. 
+				//
+				
+				
 				// 1). Create a Student record.
 				logger.debug(" >> creating student ");
 				studentId = studentService.add(student);
@@ -189,13 +198,59 @@ public class RemoteSyncResource extends JsonResource {
 		logger.debug(" RemoteSyncResource::syncBehaviors()  :  strJson  =  " + strJson);
 
 		/**
-			strJson  =  {
-			  "statusComment" : "TEsting 1.2.2",
-			  "createdDate" : "2016-04-18T15:28:04",
-			  "statusId" : 1,
-			  "studentId" : 2,
-			  "teacherId" : "152"
-			}
+ strJson  =  {
+  "9studentIdNumber" : "121212",
+  "2studentId" : 4,
+  "8createdDate" : "2016-04-18T19:37:07",
+  "1studentId" : 2,
+  "7statusId" : 1,
+  "2statusId" : 1,
+  "1createdDate" : "2016-04-18T07:21:20",
+  "10statusId" : 3,
+  "6statusId" : 2,
+  "4createdDate" : "2016-04-18T15:28:04",
+  "1statusId" : 1,
+  "9statusComment" : "ewe tweeter",
+  "9studentId" : 4,
+  "10studentIdNumber" : "13123123",
+  "8studentId" : 2,
+  "7createdDate" : "2016-04-18T15:56:53",
+  "6statusComment" : "Yellow Test",
+  "7statusComment" : "Green Test",
+  "7studentId" : 2,
+  "8statusComment" : "Test",
+  "1studentIdNumber" : "11111111",
+  "10createdDate" : "2016-04-18T19:38:29",
+  "3statusComment" : "Testing",
+  "2studentIdNumber" : "121212",
+  "5statusComment" : "Red Test",
+  "3createdDate" : "2016-04-18T15:16:57",
+  "3studentIdNumber" : "121212",
+  "4statusComment" : "TEsting 1.2.2",
+  "5statusId" : 3,
+  "4studentIdNumber" : "11111111",
+  "1statusComment" : "Doing some stuff",
+  "6createdDate" : "2016-04-18T15:56:44",
+  "2statusComment" : "Test",
+  "6studentId" : 2,
+  "5studentId" : 4,
+  "9statusId" : 2,
+  "10statusComment" : "Tricky",
+                                   "teacherId" : "152",
+  "4studentId" : 2,
+  "4statusId" : 1,
+  "9createdDate" : "2016-04-18T19:37:34",
+  "5studentIdNumber" : "121212",
+  "3studentId" : 4,
+  "2createdDate" : "2016-04-18T13:53:26",
+  "6studentIdNumber" : "11111111",
+  "7studentIdNumber" : "11111111",
+  "5createdDate" : "2016-04-18T15:56:34",
+  "8statusId" : 1,
+  "8studentIdNumber" : "11111111",
+  "3statusId" : 2,
+  "10studentId" : 8
+}
 		 */
 		
 		
@@ -240,6 +295,17 @@ public class RemoteSyncResource extends JsonResource {
 		//
 		// NOTE: The json could be an array of StudentBehavior records.
 		// 
+		
+		/**
+		  strJson  =  {
+			  "teacherId" : "152",
+			  "1studentId" : "8",
+			  "1studentIdNumber" : "13123123",
+			  "1createdDate" : "2016-04-18T19:38:10",
+			  "1comment" : "We're we're"
+			}
+		 */
+		
 		
 		StudentBehavior behavior; 
 		try {
