@@ -1,6 +1,6 @@
 package com.hrt.data.db.beans;
 
-import java.util.Date;
+import com.hrt.web.resources.client.StudentBehaviorDto;
 
 public class StudentBehavior {
 
@@ -10,13 +10,21 @@ public class StudentBehavior {
 	private long teacherId;
 	private long classRoomId;
 	private String behavior;
-	private Date logged;
+	private String logged;
 	private String status;
 	private String comment;
 
 	public StudentBehavior() { }
 
-	public StudentBehavior(long statusId, long studentId, long teacherId, String behavior, Date logged, String status,
+	public StudentBehavior(StudentBehaviorDto dto){
+		this.statusId = new Long(dto.getStatusId());
+		this.studentId = new Long(dto.getStudentId());
+		this.teacherId = new Long(dto.getTeacherId());
+		this.comment = dto.getStatusComment();
+		this.logged = dto.getCreatedDate();
+	}
+	
+	public StudentBehavior(long statusId, long studentId, long teacherId, String behavior, String logged, String status,
 			String comment) {
 		super();
 		this.statusId = statusId;
@@ -29,7 +37,7 @@ public class StudentBehavior {
 	}
 
 	public StudentBehavior(long statusId, long studentId, long teacherId, long classRoomId, String behavior,
-			Date logged, String status, String comment) {
+			String logged, String status, String comment) {
 		super();
 		this.statusId = statusId;
 		this.studentId = studentId;
@@ -89,11 +97,11 @@ public class StudentBehavior {
 		this.behavior = behavior;
 	}
 
-	public Date getLogged() {
+	public String getLogged() {
 		return logged;
 	}
 
-	public void setLogged(Date logged) {
+	public void setLogged(String logged) {
 		this.logged = logged;
 	}
 

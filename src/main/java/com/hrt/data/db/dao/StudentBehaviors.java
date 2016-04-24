@@ -16,14 +16,14 @@ import com.hrt.data.db.mappers.StudentBehaviorMapper;
 @RegisterMapper(StudentBehaviorMapper.class)
 public interface StudentBehaviors extends Transactional<Classrooms> {
 	
-    @SqlUpdate("insert into StudentBehavior (teacherId)  values (:teacherId )")
+    @SqlUpdate("insert into StudentBehaviors (teacherId)  values (:teacherId )")
     @GetGeneratedKeys
     long insert(@BindBean StudentBehavior classroom);
     
-    @SqlQuery("select id, teacherId from StudentBehavior where id = :id")
+    @SqlQuery("select id, teacherId from StudentBehaviors where id = :id")
     StudentBehavior findById(@Bind("id") long id);
     
-    @SqlQuery("select * from StudentBehavior ")
+    @SqlQuery("select * from StudentBehaviors ")
     List<StudentBehavior> findAll();
 
 }

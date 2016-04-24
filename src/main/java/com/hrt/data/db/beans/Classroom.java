@@ -12,6 +12,10 @@ public class Classroom {
 		this.id = id;
 		this.teacherId = teacherId;
 	}
+	
+	public Classroom(String teacherId) {
+		this.teacherId = new Long(teacherId);
+	}
 
 	public long getId() {
 		return id;

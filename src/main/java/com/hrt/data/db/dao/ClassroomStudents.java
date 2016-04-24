@@ -12,13 +12,13 @@ import com.hrt.data.db.beans.ClassroomStudent;
 
 public interface ClassroomStudents {
 
-    @SqlUpdate("insert into ClassroomStudents (classRoomId, teacherId)  values (:classroomId , :teacherId )")
+    @SqlUpdate("insert into ClassRoomStudents (classRoomId, studentId)  values (:classroomId , :studentId )")
     @GetGeneratedKeys
     long insert(@BindBean ClassroomStudent student);
     
-    @SqlQuery("select id, classroomId, teacherId from ClassroomStudents where teacherId = :id")
+    @SqlQuery("select id, classroomId, teacherId from ClassRoomStudents where teacherId = :id")
     ClassroomStudent findById(@Bind("id") long id);
     
-    @SqlQuery("select * from ClassroomStudents ")
+    @SqlQuery("select * from ClassRoomStudents ")
     List<ClassroomStudent> findAll();
 }

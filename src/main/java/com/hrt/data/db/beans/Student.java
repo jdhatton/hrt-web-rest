@@ -33,7 +33,8 @@ public class Student {
 		this.firstName = dto.getFirstName();
 		this.deleted = dto.getDeleted();
 		this.role = UserRole.STUDENT.getValue();
-		this.setLastName(dto.getStudentIdNumber());
+		this.setLastName(dto.getStudentIdNumber());  //REMOVE
+		this.studentId = dto.getStudentIdNumber();
 	
 	}
 

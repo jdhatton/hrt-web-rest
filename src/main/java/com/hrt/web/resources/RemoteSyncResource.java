@@ -26,6 +26,7 @@ import com.hrt.data.db.beans.ClassroomStudent;
 import com.hrt.data.db.beans.Student;
 import com.hrt.data.db.beans.StudentBehavior;
 import com.hrt.web.resources.client.AddStudentDto;
+import com.hrt.web.resources.client.StudentBehaviorDto;
 import com.hrt.web.services.ClassroomService;
 import com.hrt.web.services.StudentService;
 import com.hrt.web.services.UserService;
@@ -87,8 +88,6 @@ public class RemoteSyncResource extends JsonResource {
 			}
 		 */
 		
-		
-		String teacherId = "";
 		String remoteUserId = null;
 		Student student = null;
 		long studentId = 0;
@@ -104,21 +103,20 @@ public class RemoteSyncResource extends JsonResource {
 
 			if (dto != null) {
 				student = new Student(dto);
-				//
-				// TODO: load the student object from the dto object. 
-				//
-				
-				
+
 				// 1). Create a Student record.
 				logger.debug(" >> creating student ");
 				studentId = studentService.add(student);
 				remoteUserId = Long.toString(studentId);
 				student.setRemoteId(remoteUserId);
+				logger.debug(" >> student remoteId :  "+ remoteUserId);
 
 				// 1). Get the Classroom with TeacherId
 				logger.debug(" >> creating classroom ");
-				Classroom classroom = classroomService.getClassroom(new Long(teacherId).longValue());
+				Classroom classroom = classroomService.getClassroom(new Long(dto.getTeacherId()).longValue());
 
+				logger.debug(" >> classroom =  " + classroom );
+				
 				// 2). Create a ClassroomStudent record with the newly created
 				ClassroomStudent classroomStudent = new ClassroomStudent(classroom.getId(), student.getId());
 				if (classroomService.addClassroomStudent(classroomStudent) < 0) {
@@ -150,31 +148,16 @@ public class RemoteSyncResource extends JsonResource {
 	@Path("/behavior")
 	public Response syncBehavior(String strJson) {
 
-		logger.debug(" RemoteSyncResource::syncBehaviors()  :  strJson  =  " + strJson);
-
-		/**
-			strJson  =  {
-			  "statusComment" : "TEsting 1.2.2",
-			  "createdDate" : "2016-04-18T15:28:04",
-			  "statusId" : 1,
-			  "studentId" : 2,
-			  "teacherId" : "152"
-			}
-		 */
-		
-		
-		//
-		// TODO: Insert a new record in to the StudentBehavior table. 
-		// 
-		// ASSUMPTION: json complies with the StudentBehavior object and has the required values.
-		//
-		// NOTE: The json could be an array of StudentBehavior records.
-		// 
+		logger.debug(" RemoteSyncResource::syncBehavior()  :  strJson  =  " + strJson);
 		StudentBehavior behavior; 
+		StudentBehaviorDto dto;
 		try {
-			behavior = getMapper().readValue(strJson, StudentBehavior.class);
-			logger.debug(" >> inserting StudentBehavior record. ");
-			classroomService.addStudentBehavior(behavior);
+			dto = getMapper().readValue(strJson, StudentBehaviorDto.class);
+			logger.debug(" >> StudentBehavior DTO  : " + dto.toString());
+			behavior = new StudentBehavior(dto);
+			logger.debug(" >> Inserting StudentBehavior record : " + behavior.toString());
+			long id = classroomService.addStudentBehavior(behavior);
+			logger.debug(" >> Inserted StudentBehavior record : " + id);
 		} catch (JsonParseException e) {
 			logger.error("Exception : % ", e);
 		} catch (JsonMappingException e) {

@@ -17,7 +17,9 @@ import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
+import com.hrt.data.db.beans.Classroom;
 import com.hrt.data.db.beans.User;
+import com.hrt.web.services.ClassroomService;
 import com.hrt.web.services.UserService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -31,11 +33,13 @@ public class UserResource extends JsonResource{
 	final static Logger logger = LoggerFactory.getLogger(UserResource.class);
 	private final AtomicLong counter;
 	private final UserService service;
+	private final ClassroomService classroomService;
 	
 	@Inject
-	public UserResource(UserService service) {
+	public UserResource(UserService service, ClassroomService classroomService) {
 		this.counter = new AtomicLong();
 		this.service = service;
+		this.classroomService = classroomService;
 	}
 
 	@GET
@@ -63,6 +67,29 @@ public class UserResource extends JsonResource{
 
 		logger.debug(" DataSyncResource::registerUser()  :  User  =  " + userJson);
 		
+		/**
+		  User  =  {
+			  "id" : 1,
+			  "schoolDistrict" : "Not Found",
+			  "lastName" : "Test",
+			  "firstName" : "Deedee",
+			  "schoolGrade" : 4,
+			  "status" : 0,
+			  "registered" : 0,
+			  "deviceId" : "0EF2F242-0943-49A3-8216-1CAFD684A7E3",
+			  "deleted" : false,
+			  "password" : "12345",
+			  "role" : 0,
+			  "schoolName" : "Freedom School",
+			  "zipCode" : 30024,
+			  "email" : "test@test.com",
+			  "gender" : "M",
+			  "paid" : 0
+			}
+
+		 */
+		
+		
 		String remoteUserId = null;
 		User user = null;
 		long userId=0;
@@ -73,6 +100,12 @@ public class UserResource extends JsonResource{
 				userId = service.addUser(user);
 				remoteUserId = Long.toString(userId);
 				user.setRemoteId(remoteUserId);
+				
+				if( remoteUserId != null){
+					Classroom classroom = new Classroom(remoteUserId);
+					long classRoomId = classroomService.addClassroom(classroom);
+					logger.debug("Added Classroom: classRoomId = " + classRoomId);
+				}
 			}
 		} catch (JsonParseException e) {
 			logger.debug(" >> JsonParseException  :  " + e.getMessage());
