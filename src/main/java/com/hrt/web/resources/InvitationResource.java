@@ -89,7 +89,7 @@ import com.hrt.web.services.InvitationService;
 			logger.debug(" ["+counter.incrementAndGet()+ "] FeedbackResource::add()  :  JSON  =  " + json);
 
 			//
-			// JSON should include: TeacherRemoteId, parent email address, studentId ( should we gen a student remote ID ?? )
+			// JSON should include: TeacherRemoteId, parent email address OR phone number, studentId ( should we gen a student remote ID ?? )
 			//
 			
 			Invitation invitation = null;
