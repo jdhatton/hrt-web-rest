@@ -21,7 +21,7 @@ import com.hrt.data.db.beans.Invitation;
 import com.hrt.web.services.InvitationService;
 
  
-	@Path("/feedback")
+	@Path("/invitation")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public class InvitationResource extends JsonResource {
@@ -42,13 +42,27 @@ import com.hrt.web.services.InvitationService;
 		public Response inviteStudent( String json) {
 			
 			logger.debug(" ["+counter.incrementAndGet()+ "] InvitationResource::add()  :  JSON  =  " + json);
-
+			
+			//
+			// JSON should include: TeacherRemoteId, student email address, studentId ( should we gen a student remote ID ?? )
+			//
+			//  Consideration: how do we get the student email? proivide on the student tab in teacher app?
+			//
+			
 			Invitation invitation = null;
 			 
 			try {
 				invitation = getMapper().readValue(json, Invitation.class);
 				if(invitation != null){
-					//service.processFeedback(feedback.getId(), feedback.getComment());
+					
+					// TODO:  Wrap these steps in an executerTask. 
+					
+					//  1). If we do not have the remotestudentId working yet then do a lookup for it.
+					//  2). Generate unique activation code. 
+					//  3). Generate email to provided email for student. 
+					//  4). Save the activation code and all other data to INVITE_ACTIVATION table.
+					//  5). send email. 
+					
 				}
 			} catch (JsonParseException e) {
 				logger.error(">> JsonParseException :  " + e.getMessage());
@@ -74,12 +88,24 @@ import com.hrt.web.services.InvitationService;
 			
 			logger.debug(" ["+counter.incrementAndGet()+ "] FeedbackResource::add()  :  JSON  =  " + json);
 
+			//
+			// JSON should include: TeacherRemoteId, parent email address, studentId ( should we gen a student remote ID ?? )
+			//
+			
 			Invitation invitation = null;
 			 
 			try {
 				invitation = getMapper().readValue(json, Invitation.class);
 				if(invitation != null){
-					//service.processFeedback(feedback.getId(), feedback.getComment());
+					
+					// TODO:  Wrap these steps in an executerTask. 
+					
+					//  1). If we do not have the remotestudentId working yet then do a lookup for it.
+					//  2). Generate unique activation code. 
+					//  3). Generate email to provided email for parent. 
+					//  4). Save the activation code and all other data to INVITE_ACTIVATION table.
+					//  5). send email. 
+					
 				}
 			} catch (JsonParseException e) {
 				logger.error(">> JsonParseException :  " + e.getMessage());
