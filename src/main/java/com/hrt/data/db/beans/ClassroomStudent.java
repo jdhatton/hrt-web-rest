@@ -13,6 +13,13 @@ public class ClassroomStudent {
 		this.classroomId = classroomId;
 		this.studentId = studentId;
 	}
+	
+	public ClassroomStudent(long id, long classroomId, long studentId) {
+		super();
+		this.id = id;
+		this.classroomId = classroomId;
+		this.studentId = studentId;
+	}
 
 	public long getId() {
 		return id;

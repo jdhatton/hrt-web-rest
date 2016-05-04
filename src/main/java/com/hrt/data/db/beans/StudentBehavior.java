@@ -15,6 +15,20 @@ public class StudentBehavior {
 	private String comment;
 
 	public StudentBehavior() { }
+	
+	public StudentBehavior(long id, long statusId, long studentId, long teacherId, long classRoomId, String behavior,
+			String logged, String status, String comment) {
+		super();
+		Id = id;
+		this.statusId = statusId;
+		this.studentId = studentId;
+		this.teacherId = teacherId;
+		this.classRoomId = classRoomId;
+		this.behavior = behavior;
+		this.logged = logged;
+		this.status = status;
+		this.comment = comment;
+	}
 
 	public StudentBehavior(StudentBehaviorDto dto){
 		this.statusId = new Long(dto.getStatusId());
@@ -48,7 +62,7 @@ public class StudentBehavior {
 		this.status = status;
 		this.comment = comment;
 	}
-
+	
 	public long getId() {
 		return Id;
 	}
