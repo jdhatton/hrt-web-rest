@@ -22,14 +22,19 @@ public class ApplicationConfigurationImpl extends DAO implements ApplicationConf
 		return all.findAll();	
 	}
 
-	public ApplicationConfiguration findById(long Id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ApplicationConfiguration findById(long id) {
+		ApplicationConfigurations all = DAO.getDBI().onDemand(ApplicationConfigurations.class);
+		return all.findById(id);	
 	}
 
 	public ApplicationConfiguration findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		ApplicationConfigurations all = DAO.getDBI().onDemand(ApplicationConfigurations.class);
+		return all.findByName(name);	
+	}
+
+	public List<ApplicationConfiguration> findByPlatform(String platform) {
+		ApplicationConfigurations all = DAO.getDBI().onDemand(ApplicationConfigurations.class);
+		return all.findByPlatform(platform);	
 	}
 
 }

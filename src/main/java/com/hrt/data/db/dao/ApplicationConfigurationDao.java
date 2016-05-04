@@ -11,4 +11,6 @@ public interface ApplicationConfigurationDao {
 	public ApplicationConfiguration findById(long Id);
 	
 	public ApplicationConfiguration findByName(String name);
+	
+	public List<ApplicationConfiguration> findByPlatform(String platform) ;
 }

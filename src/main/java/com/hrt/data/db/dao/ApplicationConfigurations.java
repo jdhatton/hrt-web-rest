@@ -20,4 +20,7 @@ public interface ApplicationConfigurations {
     
     @SqlQuery("select * from ApplicationConfiguration where name = :name")
     ApplicationConfiguration findByName(@Bind("name")String name); 
+    
+    @SqlQuery("select * from ApplicationConfiguration where platform = :platform")
+    List<ApplicationConfiguration> findByPlatform(@Bind("platform")String platform); 
 }
