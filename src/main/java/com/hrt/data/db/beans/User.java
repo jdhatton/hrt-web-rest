@@ -25,6 +25,7 @@ public class User {
 	private int paid;
 	String remoteId;
 	String deviceId;
+	String deviceToken;
 	String password;
 	String deleted;
 	
@@ -45,7 +46,7 @@ public class User {
 	public User(long id, String email, String phone, double zipCode,
 			String schoolDistrict, String schoolName, int schoolGrade,
 			int registered, int role, String firstName, String lastName,
-			String gender, int status, int paid, String deviceToken, String remoteId, String password) {
+			String gender, int status, int paid, String deviceId, String remoteId, String password, String deviceToken) {
 		super();
 		Id = id;
 		this.email = email;
@@ -61,9 +62,10 @@ public class User {
 		this.gender = gender;
 		this.status = status;
 		this.paid = paid;
-		this.deviceId = deviceToken;
+		this.deviceId = deviceId;
 		this.remoteId = remoteId;
 		this.password = password;
+		this.deviceToken = deviceToken;
 	}
 
 	public long getId() {
@@ -193,8 +195,6 @@ public class User {
 		this.password = password;
 	}
 	
-	
-
 	public String getDeleted() {
 		return deleted;
 	}
@@ -203,18 +203,26 @@ public class User {
 		this.deleted = deleted;
 	}
 
-	@Override
-	public String toString() {
-		return "User [Id=" + Id + ", email=" + email + ", phone=" + phone + ", zipCode=" + zipCode
-				+ ", schoolDistrict=" + schoolDistrict + ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
-				+ ", registered=" + registered + ", role=" + role + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", gender=" + gender + ", status=" + status + ", paid=" + paid + ", remoteId=" + remoteId
-				+ ", deviceId=" + deviceId + ", password=" + password + ", lastModifiedBy=" + lastModifiedBy
-				+ "]";
+	public String getDeviceToken() {
+		return deviceToken;
 	}
 
- 
-	
-	
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
+	}
+
+	@Override
+	public String toString() {
+		return "User [Id=" + Id + ", email=" + email + ", phone=" + phone
+				+ ", zipCode=" + zipCode + ", schoolDistrict=" + schoolDistrict
+				+ ", schoolName=" + schoolName + ", schoolGrade=" + schoolGrade
+				+ ", registered=" + registered + ", role=" + role
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", gender=" + gender + ", status=" + status + ", paid="
+				+ paid + ", remoteId=" + remoteId + ", deviceId=" + deviceId
+				+ ", deviceToken=" + deviceToken + ", password=" + password
+				+ ", deleted=" + deleted + ", lastModifiedBy=" + lastModifiedBy
+				+ "]";
+	}
 	
 }

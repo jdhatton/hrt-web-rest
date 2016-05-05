@@ -2,6 +2,7 @@ package com.hrt.web.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.inject.Inject;
 import com.hrt.data.db.beans.ApplicationConfiguration;
 import com.hrt.data.db.beans.Device;

@@ -19,8 +19,8 @@ public interface Users extends Transactional<Users> {
 	//
 	// TODO: add a deviceToken field to the DB
 	//
-    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, gender, paid, password, phone ) "
-    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:gender , :paid, :password, :deviceId    )")
+    @SqlUpdate("insert into User (schoolDistrict, schoolGrade, schoolName, firstName, lastName, status, registered, role, zipCode, email, gender, paid, password, phone, deviceToken ) "
+    		+  "values (:schoolDistrict, :schoolGrade , :schoolName ,:firstName ,:lastName ,:status ,:registered ,:role ,:zipCode ,:email ,:gender , :paid, :password, :deviceId, :deviceToken    )")
     @GetGeneratedKeys
     long insert(@BindBean User user);
     

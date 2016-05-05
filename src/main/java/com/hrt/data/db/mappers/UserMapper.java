@@ -33,8 +33,8 @@ public class UserMapper implements ResultSetMapper<User> {
 				//new DateTime(r.getDate("lastActivity")),
 				//new DateTime(r.getDate("lastModified")), 
 				"",r.getString("remoteId"),
-				r.getString("password"));
-
+				r.getString("password"),
+				r.getString("deviceToken"));
 		}
  
 }
